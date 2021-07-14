@@ -436,3 +436,42 @@
 //   if (typeof Nick[i] === 'number') break;
 //   console.log(Nick[i], typeof (Nick[i]));
 // }
+
+//! ~~~~~~~~~~~~~~~ 48) Looping Backwards and Loops in Loops ~~~~~~~~~~~
+
+// const Nick = [
+//   'Nick',
+//   'Lindau',
+//   2020 - 1990,
+//   'Bartender',
+//   ["Michael", "Stef", "Wayne"]
+// ]
+
+// const flipArrayForEach = (array) => {
+//   let newArray = [];
+//   array.forEach(element => {
+//     newArray.unshift(element)
+//   });
+//   console.log(newArray);
+// }
+
+// flipArrayForEach(Nick);
+
+//* OR
+
+// const flipArrayFor = array => {
+//   let newArray = [];
+//   for (let i = array.length - 1; i >= 0; i--) {
+//     newArray.push(array[i])
+//   };
+//   console.log(newArray);
+// }
+
+// flipArrayFor(Nick);
+
+// for (let exercise = 1; exercise <= 3; exercise++) {
+//   console.log(`~~~~~~~~~ Starting excercise ${exercise}`);
+//   for (let rep = 1; rep <= 5; rep++) {
+//     console.log(`Exercise ${exercise}: Rep ${rep}`);
+//   }
+// }
