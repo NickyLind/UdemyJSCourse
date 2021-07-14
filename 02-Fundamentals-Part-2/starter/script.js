@@ -272,23 +272,23 @@
 
 //! ~~~~~~~~~~~~~~~DOT VS. BRACKET NOTATION~~~~~~~~~~~~~~~~~~~
 
-const Nick = {
-  firstName: "Nick",
-  lastName: "Lindau",
-  age: 2020 - 1990,
-  job: "bartender",
-  friends: ["Michael", "Wayne", "Mr. PoopyButthole"]
-}
-Nick.location = "Vancouver, WA";
-Nick.weinerLength = "8ft";
+// const Nick = {
+//   firstName: "Nick",
+//   lastName: "Lindau",
+//   age: 2020 - 1990,
+//   job: "bartender",
+//   friends: ["Michael", "Wayne", "Mr. PoopyButthole"]
+// }
+// Nick.location = "Vancouver, WA";
+// Nick.weinerLength = "8ft";
 
-console.log(Nick);
-console.log(Nick.lastName);
-console.log(Nick["lastName"]);
+// console.log(Nick);
+// console.log(Nick.lastName);
+// console.log(Nick["lastName"]);
 
-const nameKey = 'Name';
-console.log(Nick["first" + nameKey]);
-console.log(Nick["last" + nameKey]);
+// const nameKey = 'Name';
+// console.log(Nick["first" + nameKey]);
+// console.log(Nick["last" + nameKey]);
 
 // const interestedIn = prompt('What do you want to know about Nick? Choost between First Name, Last Name, Age, Job, and Friends')
 
@@ -298,10 +298,41 @@ console.log(Nick["last" + nameKey]);
 //   console.log("Wrong request");
 // }
 
-var friend = Object.keys(Nick);
+// var friend = Object.keys(Nick);
 
 // Challenge 
 // ~Nick~ has ~3~ ~friends~, and his best ~friend - s~ is called ~Micahel~
-console.log(`${Nick.firstName} has ${Nick.friends.length} ${friend[4]} and his best friend is called ${Nick.friends[0]}`);
+// console.log(`${Nick.firstName} has ${Nick.friends.length} ${friend[4]} and his best friend is called ${Nick.friends[0]}`);
 
-console.log(Object.keys(Nick));
+// console.log(Object.keys(Nick));
+
+//! ~~~~~~~~~~~~~~~~~~~~ 44) OBJECT METHODS ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// const Nick = {
+//   firstName: "Nick",
+//   lastName: "Lindau",
+//   birthYear: 1990,
+//   job: "bartender",
+//   friends: ["Michael", "Wayne", "Mr. PoopyButthole"],
+//   hasDriversLicense: true,
+  // calcAge: function () {
+  //   return 2020 - this.birthYear
+  // }
+  //? any function attached to an object is called a method( the example above is a function expression)
+//   calcAge: function () {
+//     this.age = 2020 - this.birthYear;
+//     return this.age;
+//   },
+//   getSummary: function () {
+//     return `${this.firstName} is a ${this.age}-year old ${this.job}, and he has ${Nick.hasDriversLicense ? "a" : "no"} driver's license`
+//   }
+// };
+
+// console.log(Nick.calcAge());
+// console.log(Nick["calcAge"](Nick.birthYear));
+// console.log(Nick.age);
+
+// Challenge
+// "Nick is a 30-year old bartender. and he has a driver's license"
+// console.log(Nick.getSummary());
+//? An array is essentially an object that has specific built in methods through JavaScript (push, pop, etc)
