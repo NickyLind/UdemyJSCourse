@@ -261,6 +261,17 @@
 //   ['Michael', 'Wayne', 'Mr. PoopyButthole']
 // ]
 
+// const Nick = {
+//   firstName: "Nick",
+//   lastName: "Lindau",
+//   age: 2020 - 1990,
+//   job: "bartender",
+//   friends: ["Michael", "Wayne", "Mr. PoopyButthole"]
+// }
+//? Keys in the Key-Value pairs are also called Properties
+
+//! ~~~~~~~~~~~~~~~DOT VS. BRACKET NOTATION~~~~~~~~~~~~~~~~~~~
+
 const Nick = {
   firstName: "Nick",
   lastName: "Lindau",
@@ -268,4 +279,29 @@ const Nick = {
   job: "bartender",
   friends: ["Michael", "Wayne", "Mr. PoopyButthole"]
 }
-//? Keys in the Key-Value pairs are also called Properties
+Nick.location = "Vancouver, WA";
+Nick.weinerLength = "8ft";
+
+console.log(Nick);
+console.log(Nick.lastName);
+console.log(Nick["lastName"]);
+
+const nameKey = 'Name';
+console.log(Nick["first" + nameKey]);
+console.log(Nick["last" + nameKey]);
+
+// const interestedIn = prompt('What do you want to know about Nick? Choost between First Name, Last Name, Age, Job, and Friends')
+
+// if (Nick[interestedIn]) {
+//   console.log(Nick[interestedIn]);
+// } else {
+//   console.log("Wrong request");
+// }
+
+var friend = Object.keys(Nick);
+
+// Challenge 
+// ~Nick~ has ~3~ ~friends~, and his best ~friend - s~ is called ~Micahel~
+console.log(`${Nick.firstName} has ${Nick.friends.length} ${friend[4]} and his best friend is called ${Nick.friends[0]}`);
+
+console.log(Object.keys(Nick));
