@@ -384,3 +384,55 @@
 // for (let rep = 1; rep <= 10; rep++) {
 //   console.log('bench press rep x' + rep);
 // }
+
+//! ~~~~~~~~~~~~~~~~~ 47) Looping Arrays, Breaking, and Continuing ~~~~~~~~~~
+
+// const Nick = [
+//   'Nick',
+//   'Lindau',
+//   2020 - 1990,
+//   'bartender',
+//   ['Michael', 'Wayne', 'Mr. PoopyButthole']
+// ]
+
+// const Tiddies = [
+//   8, 0, 0, 8, 5
+// ]
+
+// const lesson = [
+//   "Some of", "these lessons", "are", "so", "fucking boring"
+// ]
+
+// const forLoopArrayItems = (array) => {
+//   for (let i = 0; i < array.length; i++) {
+//     console.log(array[i]);
+//   }
+// }
+
+// forLoopArrayItems(Nick);
+// forLoopArrayItems(Tiddies);
+// forLoopArrayItems(lesson);
+
+// const forEachLoopArrayItems = (array) => {
+//   array.forEach(index => {
+//     console.log(index);
+//   })
+// }
+
+// forEachLoopArrayItems(Nick);
+// forEachLoopArrayItems(Tiddies);
+// forEachLoopArrayItems(lesson);
+
+// * continue and break
+// console.log('----ONLY STRINGS-----');
+// for (let i = 0; i < Nick.length; i++) {
+//   if (typeof Nick[i] !== 'string') continue;
+//   console.log(Nick[i], typeof (Nick[i]));
+// }
+
+
+// console.log('----BREAK WITH NUMBER-----');
+// for (let i = 0; i < Nick.length; i++) {
+//   if (typeof Nick[i] === 'number') break;
+//   console.log(Nick[i], typeof (Nick[i]));
+// }
