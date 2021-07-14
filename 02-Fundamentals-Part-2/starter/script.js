@@ -306,7 +306,7 @@
 
 // console.log(Object.keys(Nick));
 
-//! ~~~~~~~~~~~~~~~~~~~~ 44) OBJECT METHODS ~~~~~~~~~~~~~~~~~~~~~~~~~
+//! ~~~~~~~~~~~~~~~~~~~~ 44) OBJECT METHODS ~~~~~~~~~~~~~~~~~~~~~~
 
 // const Nick = {
 //   firstName: "Nick",
@@ -374,3 +374,13 @@
 // }
 
 // console.log(logHigherBMI(mark, john));
+
+//! ~~~~~~~~~~~~~ 46) Iteration: the For Loop ~~~~~~~~~~~~
+
+// console.log('Lifting weights repetition 1 🏋️‍♂️🏋️‍♀️');
+// console.log('Lifting weights repetition 2 🏋️‍♂️🏋️‍♀️');
+// console.log('Lifting weights repetition 3 🏋️‍♂️🏋️‍♀️');
+
+// for (let rep = 1; rep <= 10; rep++) {
+//   console.log('bench press rep x' + rep);
+// }
