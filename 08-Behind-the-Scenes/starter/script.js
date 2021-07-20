@@ -89,3 +89,46 @@
 //? false
 // console.log(z === window.z);
 //? false
+
+//! ~~~~~~~~~The 'this' Keyword in practice~~~~~~~~~
+
+// console.log(this);
+//? will reference the window object in the browser
+
+// const calcAge = function (birthYear) {
+//   console.log(2021 - birthYear);
+//   console.log(this);
+// };
+// calcAge(1990);
+//? in strict mode we will return unndefined otherwise it would also return the window object
+
+// const calcAge = birthYear => {
+//   console.log(2021 - birthyear);
+//   console.log(this);
+// };
+// calcAge(1990);
+//? this will return the window because the object that holds the arrow function (lexical this) is the window object
+
+// const nick = {
+//   year: 1990,
+//   calcAge: function () {
+//     console.log(this);
+//     console.log(2020 - this.year);
+//   },
+// };
+// nick.calcAge();
+//? this will return the Object that is calling the method (nick.calcAge() => nick is 'this')
+
+// const matilda = {
+//   year: 2017,
+// };
+
+// matilda.calcAge = nick.calcAge;
+//? if we type matilda into the console we will see that calcAge will also be a property of matilda's this is called NOTE: 'Method Borrowing'
+// matilda.calcAge();
+//? we now see that this method will point to the Object (matilda)
+
+// const f = nick.calcAge;
+//? we can save the function in a variable like so
+// f();
+//? the 'this' keyword is now undefined because there is no object calling it
