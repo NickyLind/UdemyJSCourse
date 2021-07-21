@@ -206,18 +206,80 @@
 
 //! ~~~~~~ PRIMITIVES VS OBJECTS (Primitives vs. Reference Types) ~~~~~~~~~~~~~~
 
-let age = 30;
-let oldAge = age;
-age = 31;
-console.log(age);
-console.log(oldAge);
+// let age = 30;
+// let oldAge = age;
+// age = 31;
+// console.log(age);
+// console.log(oldAge);
 
-const me = {
-  name: 'Nick',
-  age: 30,
-};
+// const me = {
+//   name: 'Nick',
+//   age: 30,
+// };
 
-const friend = me;
-friend.age = 27;
-console.log('Friend: ', friend);
-console.log('Me: ', me);
+// const friend = me;
+// friend.age = 27;
+// console.log('Friend: ', friend);
+// console.log('Me: ', me);
+
+//! ~~~~~~~~ PRIMITIVES VS OBJECTS (IN PRACTICE) ~~~~~~~~~~~
+
+//* Primitive Types
+// let lastName = 'Lindau';
+// let oldLastName = lastName;
+// lastName = 'Davis';
+// console.log(lastName, oldLastName);
+//? This will display different results because each Primitive Value recieves it's own piece of memory in the stack
+
+//* Reference Types
+// const jessica = {
+//   firstName: 'Jessica',
+//   lastName: 'Williams',
+//   age: 27,
+// };
+
+// const marriedJessica = jessica;
+//? behind the scenes we are just copying the same reference to the same object in the heap
+
+// marriedJessica.lastName = 'Davis';
+// console.log('Before marriage: ', jessica);
+// console.log('After marriage: ', marriedJessica);
+//? This logs the same thing because we never created a new object in the heap, we simply created a new variable in the call stack that points to the same memory address in the heap
+//? This is the same reason why we can mutate the value of the const `marriedJessica`, because we are changing the value in the heap which is just a Reference Type, which has nothing to do with Primitive Values that are stored in teh Call Stack
+
+// marriedJessica = {};
+//? This will not work because we can't simply assign a value to something that's already been created as a const, because const marriedJessica can't be changed in the stack heap
+//? NOTE the takeaway here is that changing an enitre object is fundamentally different than changing its properties
+
+//* Copying Objects
+// const jessica2 = {
+//   firstName: 'Jessica',
+//   lastName: 'Williams',
+//   age: 27,
+// };
+
+// const jessicaCopy = Object.assign({}, jessica2);
+//? Object.assign() creates a new object by combining two different objects, so if we combine an empty array with jessica2 it will create a brand new copy in heap memory for jessicaCopy
+// jessicaCopy.lastName = 'Davis';
+// console.log('Before marriage: ', jessica2);
+// console.log('After marriage: ', jessicaCopy);
+//! only works on first-level objects(not on objects-wthin-objects) (creates a "Shallow-copy")
+//!EXAMPLE:
+
+// const jessica2 = {
+//   firstName: 'Jessica',
+//   lastName: 'Williams',
+//   age: 27,
+//   family: ['Alice', 'Bob'],
+// };
+
+// const jessicaCopy = Object.assign({}, jessica2);
+
+// jessicaCopy.lastName = 'Davis';
+
+// jessicaCopy.family.push('Mary');
+// jessicaCopy.family.push('John');
+
+// console.log('Before marriage: ', jessica2);
+// console.log('After marriage: ', jessicaCopy);
+//? The lastName property still works because it is a first-level property, because Object.assign only makes shallow copies, and these two objects still point to the same memory address in the heap, it changes jessica2's family property as well
