@@ -153,7 +153,7 @@
 // const book = lufthansa.book;
 
 //* Call Method
-//? does not work
+//! does not work
 // book(23, 'Sarah Williams'); 
 
 // book.call(eurowings, 23, 'Sarah Williams');
@@ -180,4 +180,54 @@
 //? this is the more modern way to handle this
 
 //! ~~~~~~~~~~~~~~ The Bind Method ~~~~~~~~~~~~~~~~~~
+
+// book.call(eurowings, 23, 'Sarah Williams');
+
+// const bookEW = book.bind(eurowings);
+// const bookLH = book.bind(lufthansa);
+// const bookLX = book.bind(swiss);
+
+// bookEW(23, 'Steven Williams');
+
+// const bookEW23 = book.bind(eurowings, 23);
+// bookEW23('Jonas Schmedtmann');
+// bookEW23('Martha Cooper');
+
+//* With Event Listeners
+// lufthansa.planes = 300;
+// lufthansa.buyPlane = function() {
+//   console.log(this);
+
+//   this.planes++
+//   console.log(this.planes);
+// };
+// document
+//   .querySelector('.buy')
+//   .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+//? using an event listeners points the 'this' keyword to the event target ('.buy'), so we have to bind it to the object we want to use
+
+//* Partial Application
+
+// const addTax = (rate, value) => {
+//   return value + value * rate
+// }
+
+// console.log(addTax(.10, 200));
+
+// const addVAT = addTax.bind(null, 0.23);
+//? if we set the value of the 'this' keyword to null we can create a function that binds specific arguments to function parameters
+
+// console.log(addVAT(100));
+// console.log(addVAT(23));
+
+
+//? Example doing the same thing with returning functions
+// const addTaxRate = rate => {
+//   return (value) => {
+//     return value + value * rate
+//   }
+// }
+// const addVAT2 = addTaxRate(0.23);
+// console.log(addVAT(100));
+// console.log(addVAT(23));
 
