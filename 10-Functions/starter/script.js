@@ -325,25 +325,94 @@ GOOD LUCK 😀
 // }
 
 //! ~~~~~~~~~~~~~~~~~ Closures ~~~~~~~~~~~~~~~~~~~~~~
-//?NOTE Any function always has access to the variable environment of the execution context in which the function was created
+// //?NOTE Any function always has access to the variable environment of the execution context in which the function was created
 
-const secureBooking = function() {
-  let passengerCount = 0;
+// const secureBooking = function() {
+//   let passengerCount = 0;
 
-  return function() {
-    passengerCount++
-    console.log(`${passengerCount} passengers`);
-    //? closures work because this inner return function stores the variable information, even though the secureBooking() EC(execution context) isn't on the call stack anymore
-  }
-};
+//   return function() {
+//     passengerCount++
+//     console.log(`${passengerCount} passengers`);
+//     //? closures work because this inner return function stores the variable information, even though the secureBooking() EC(execution context) isn't on the call stack anymore
+//   }
+// };
 
-const booker = secureBooking();
+// const booker = secureBooking();
 
-booker();
-booker();
-booker();
-//?NOTE even if there was a global passengerCount variable, the function still checks the closure first before the global variable
+// booker();
+// booker();
+// booker();
+// //?NOTE even if there was a global passengerCount variable, the function still checks the closure first before the global variable
 
-console.dir(booker);
-//?NOTE The method console.dir() displays an interactive list of the properties of the specified JavaScript object.
-//? Here we can see the closure in the console
+// console.dir(booker);
+// //?NOTE The method console.dir() displays an interactive list of the properties of the specified JavaScript object.
+// //? Here we can see the closure in the console
+
+//! ~~~~~~~~~~~~~~~~~~ More Closure Examples ~~~~~~~~~~~~~~
+
+
+// //* Example 1
+// let f;
+
+// const g = function() {
+//   const a = 23;
+//   f = function() {
+//     console.log(a * 2);
+//   }
+// };
+
+// const h = function() {
+//   const b = 777;
+//   f = function () {
+//     console.log(b * 2);
+//   }
+// };
+
+// g();
+// f();
+// console.dir(f)
+
+// // Re-assigning f function
+// h();
+// f();
+// console.dir(f);
+
+// //* Example 2
+// const boardPassengers = function(n, wait) {
+//   const perGroup = n / 3;
+
+//   setTimeout(function(){
+//     console.log(`We are now boarding all ${n} passengers`);
+//     console.log((`There are 3 groups, each with ${perGroup} passengers`));
+//   }, wait * 1000)
+
+//   console.log(`Will start boarding in ${wait} seconds`);
+// };
+
+// const perGroup = 1000;
+// boardPassengers(180, 3);
+
+//! ~~~~~~~~~~~~~ Coding Challenge #2 ~~~~~~~~~~~~~~~~
+
+/* 
+This is more of a thinking challenge than a coding challenge 🤓
+
+Take the IIFE below and at the end of the function, attach an event listener that changes the color of the selected h1 element ('header') to blue, each time the BODY element is clicked. Do NOT select the h1 element again!
+
+And now explain to YOURSELF (or someone around you) WHY this worked! Take all the time you need. Think about WHEN exactly the callback function is executed, and what that means for the variables involved in this example.
+
+GOOD LUCK 😀
+*/
+
+// (function () {
+//   const header = document.querySelector('h1')
+//   header.style.color = 'red';
+
+//   document.querySelector('body').addEventListener
+//   ('click', function() {
+//       header.style.color = 'blue';
+//     }
+//   );
+// })();
+
+// //? This Immediately Invoked Function Expression is called immediately and is gone once it changes the header to red once the page loads. The function created inside the IIFE remembers the variables present during it's birth because of closures, so it has access to the header variable that was initially created
