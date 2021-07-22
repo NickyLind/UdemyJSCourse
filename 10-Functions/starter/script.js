@@ -62,7 +62,7 @@
 //   } else {
 //     alert('Wrong passpord!');
 //   }
-};
+// };
 
 // checkIn(flight, nick);
 // console.log(flight);
@@ -74,3 +74,5 @@
 
 // newPassport(nick);
 // checkIn(flight, nick);
+
+//! ~~~~~~~~ First Class & Higher Order Functions ~~~~~~~~~~
