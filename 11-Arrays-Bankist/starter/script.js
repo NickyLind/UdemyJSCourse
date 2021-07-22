@@ -74,3 +74,42 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+//* SLICE
+console.log(arr.slice(2))
+// returns ['c', 'd', 'e']
+console.log(arr.slice(2, 4));
+// returns ['c', 'd']
+console.log(arr.slice(-2));
+// return ['d', 'e'] // negatives start at the end
+console.log(arr.slice(1, -2));
+// returns ['b', 'c']
+console.log(arr.slice());
+// returns shallow copy of original array
+
+//* SPLICE
+// console.log(arr.splice(2));
+// //returns ['c', 'd', 'e']
+// // destructive, will alter original array
+arr.splice(-1)
+// returns ['a', 'b', 'c', 'd']
+arr.splice(1, 2);
+// returns ['a', 'd']
+console.log(arr);
+
+//* REVERSE
+arr = ['a', 'b', 'c', 'd', 'e'];
+let arr2 = ['j', 'i', 'h', 'g', 'f']
+console.log(arr2.reverse());
+// reverse mutates the original arrays
+
+//* CONCAT
+const letters = arr.concat(arr2);
+console.log(letters);
+console.log([...arr, ...arr2]); // does the same thing
+// concat doesn't mutate the original array
+
+//* JOIN
+console.log(letters.join('-'));
