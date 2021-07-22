@@ -299,3 +299,27 @@ GOOD LUCK 😀
 
 // // BONUS TEST DATA 1: [5, 2, 3]
 // // BONUS TEST DATA 2: [1, 5, 3, 9, 6, 1]
+
+//! ~~~~~~ Immediately Invoked Function Expressions (IVFE) ~~~~~~~~
+
+//* This can be used multiple times
+const runOnce = function() {
+  console.log('This will never run again');
+};
+runOnce();
+
+//* This will run immediately and can't really be called again 
+(function() {
+  console.log('This will never run again');
+  const isPrivate = 23;
+  //? This data is encapsulated or private so it cannot be accessed outside this function
+})();
+
+//* Arrow Function version
+(() => console.log('This will ALSO never run again'))();
+
+//* Using a block (more common today to hide/scope data)
+{
+  const isPrivate = 23;
+  //? This also can't be accessed outside this block because let and const are scoped to this block
+}
