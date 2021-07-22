@@ -302,24 +302,48 @@ GOOD LUCK 😀
 
 //! ~~~~~~ Immediately Invoked Function Expressions (IVFE) ~~~~~~~~
 
-//* This can be used multiple times
-const runOnce = function() {
-  console.log('This will never run again');
+// //* This can be used multiple times
+// const runOnce = function() {
+//   console.log('This will never run again');
+// };
+// runOnce();
+
+// //* This will run immediately and can't really be called again 
+// (function() {
+//   console.log('This will never run again');
+//   const isPrivate = 23;
+//   //? This data is encapsulated or private so it cannot be accessed outside this function
+// })();
+
+// //* Arrow Function version
+// (() => console.log('This will ALSO never run again'))();
+
+// //* Using a block (more common today to hide/scope data)
+// {
+//   const isPrivate = 23;
+//   //? This also can't be accessed outside this block because let and const are scoped to this block
+// }
+
+//! ~~~~~~~~~~~~~~~~~ Closures ~~~~~~~~~~~~~~~~~~~~~~
+//?NOTE Any function always has access to the variable environment of the execution context in which the function was created
+
+const secureBooking = function() {
+  let passengerCount = 0;
+
+  return function() {
+    passengerCount++
+    console.log(`${passengerCount} passengers`);
+    //? closures work because this inner return function stores the variable information, even though the secureBooking() EC(execution context) isn't on the call stack anymore
+  }
 };
-runOnce();
 
-//* This will run immediately and can't really be called again 
-(function() {
-  console.log('This will never run again');
-  const isPrivate = 23;
-  //? This data is encapsulated or private so it cannot be accessed outside this function
-})();
+const booker = secureBooking();
 
-//* Arrow Function version
-(() => console.log('This will ALSO never run again'))();
+booker();
+booker();
+booker();
+//?NOTE even if there was a global passengerCount variable, the function still checks the closure first before the global variable
 
-//* Using a block (more common today to hide/scope data)
-{
-  const isPrivate = 23;
-  //? This also can't be accessed outside this block because let and const are scoped to this block
-}
+console.dir(booker);
+//?NOTE The method console.dir() displays an interactive list of the properties of the specified JavaScript object.
+//? Here we can see the closure in the console
