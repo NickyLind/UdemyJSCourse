@@ -372,3 +372,20 @@ GOOD LUCK 😀
 // }
 // console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]))
 // console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]))
+
+//! ~~~~~~~~~~~~~~~~~~ The Find Method ~~~~~~~~~~~~~~~~~
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// const firstWithdrawl = movements.find(function(mov){
+//   return mov < 0;
+//   //the find method returns a boolean
+//   //the find method finds the first element in the array where the operation in the call back function returns true
+// });
+// console.log(movements);
+// console.log(firstWithdrawl);
+// //*NOTE ~~~~Differences between Find and Filter~~~~
+// //* Filter returns a whole new array that matches the conditions of the callback function
+// //* Find only returns the first element that matches the conditions of the callback function
+// console.log(accounts);
+// const account = accounts.find(acc => acc.owner === 'Jessica Davis')
+// console.log(account);
