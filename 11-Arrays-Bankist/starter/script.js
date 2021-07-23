@@ -77,44 +77,44 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 //! ~~~~~~~~~~ ARRAY METHODS ~~~~~~~~~~~~~~~~
 
-let arr = ['a', 'b', 'c', 'd', 'e'];
+// let arr = ['a', 'b', 'c', 'd', 'e'];
 
-//* SLICE
-console.log(arr.slice(2))
-// returns ['c', 'd', 'e']
-console.log(arr.slice(2, 4));
-// returns ['c', 'd']
-console.log(arr.slice(-2));
-// return ['d', 'e'] // negatives start at the end
-console.log(arr.slice(1, -2));
-// returns ['b', 'c']
-console.log(arr.slice());
-// returns shallow copy of original array
+// //* SLICE
+// console.log(arr.slice(2))
+// // returns ['c', 'd', 'e']
+// console.log(arr.slice(2, 4));
+// // returns ['c', 'd']
+// console.log(arr.slice(-2));
+// // return ['d', 'e'] // negatives start at the end
+// console.log(arr.slice(1, -2));
+// // returns ['b', 'c']
+// console.log(arr.slice());
+// // returns shallow copy of original array
 
-//* SPLICE
-// console.log(arr.splice(2));
-// //returns ['c', 'd', 'e']
-// // destructive, will alter original array
-arr.splice(-1)
-// returns ['a', 'b', 'c', 'd']
-arr.splice(1, 2);
-// returns ['a', 'd']
-console.log(arr);
+// //* SPLICE
+// // console.log(arr.splice(2));
+// // //returns ['c', 'd', 'e']
+// // // destructive, will alter original array
+// arr.splice(-1)
+// // returns ['a', 'b', 'c', 'd']
+// arr.splice(1, 2);
+// // returns ['a', 'd']
+// console.log(arr);
 
-//* REVERSE
-arr = ['a', 'b', 'c', 'd', 'e'];
-let arr2 = ['j', 'i', 'h', 'g', 'f']
-console.log(arr2.reverse());
-// reverse mutates the original arrays
+// //* REVERSE
+// arr = ['a', 'b', 'c', 'd', 'e'];
+// let arr2 = ['j', 'i', 'h', 'g', 'f']
+// console.log(arr2.reverse());
+// // reverse mutates the original arrays
 
-//* CONCAT
-const letters = arr.concat(arr2);
-console.log(letters);
-console.log([...arr, ...arr2]); // does the same thing
-// concat doesn't mutate the original array
+// //* CONCAT
+// const letters = arr.concat(arr2);
+// console.log(letters);
+// console.log([...arr, ...arr2]); // does the same thing
+// // concat doesn't mutate the original array
 
-//* JOIN
-console.log(letters.join('-'));
+// //* JOIN
+// console.log(letters.join('-'));
 
 //! ~~~~~~~~~~~ Looping Arrays: forEach ~~~~~~~~~~~~~~
 
@@ -150,21 +150,60 @@ console.log(letters.join('-'));
 
 //! ~~~~~~~~~~~ forEach with Maps and Sets ~~~~~~~~~~~
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
-currencies.forEach(function(value, key, entireMap) {
-  console.log(`${key}: ${value}`);
-});
+// currencies.forEach(function(value, key, entireMap) {
+//   console.log(`${key}: ${value}`);
+// });
 
-//* Set
-//?NOTE sets only have unique information, so the repeat values will be cut
-const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
-console.log(currenciesUnique);
-currenciesUnique.forEach(function(value, key, entireMap) {
-  console.log(`${key}: ${value}`);
-  //? Sets don't have keys or values so all the above parameters are the same
-});
+// //* Set
+// //?NOTE sets only have unique information, so the repeat values will be cut
+// const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+// console.log(currenciesUnique);
+// currenciesUnique.forEach(function(value, key, entireMap) {
+//   console.log(`${key}: ${value}`);
+//   //? Sets don't have keys or values so all the above parameters are the same
+// });
+
+//! ~~~~~~~~~~~~~ CODING CHALLENGE #1 ~~~~~~~~~~~~~~~~
+
+// Coding Challenge #1
+
+/* 
+Julia and Kate are doing a study on dogs. So each of them asked 5 dog owners about their dog's age, and stored the data into an array (one array for each). For now, they are just interested in knowing whether a dog is an adult or a puppy. A dog is an adult if it is at least 3 years old, and it's a puppy if it's less than 3 years old.
+
+Create a function 'checkDogs', which accepts 2 arrays of dog's ages ('dogsJulia' and 'dogsKate'), and does the following things:
+
+1. Julia found out that the owners of the FIRST and the LAST TWO dogs actually have cats, not dogs! So create a shallow copy of Julia's array, and remove the cat ages from that copied array (because it's a bad practice to mutate function parameters)
+2. Create an array with both Julia's (corrected) and Kate's data
+3. For each remaining dog, log to the console whether it's an adult ("Dog number 1 is an adult, and is 5 years old") or a puppy ("Dog number 2 is still a puppy 🐶")
+4. Run the function for both test datasets
+
+HINT: Use tools from all lectures in this section so far 😉
+
+TEST DATA 1: Julia's data [3, 5, 2, 12, 7], Kate's data [4, 1, 15, 8, 3]
+TEST DATA 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
+
+GOOD LUCK 😀
+*/
+
+// const juliaData1 = [3, 5, 2, 12, 7];
+// const kateData1 = [4, 1, 15, 8, 3];
+// const juliaData2 = [9, 16, 6, 8, 3];
+// const kateData2 = [10, 5, 6, 1, 4];
+
+// const checkDogs = (dogsJulia, dogsKate) => {
+//   const juliaNew = dogsJulia.slice(1, -2);
+//   juliaNew.concat(dogsKate).forEach(function(movement, index){
+//     movement >= 3 ? console.log(`Dog number ${index + 1} is an adult, and is ${movement} years old`) : console.log(`Dog number ${index + 1} is still a puppy, and is ${movement} years old`)
+//   })
+// }
+
+// console.log('~~~~~~Test Data 1 ~~~~~~');
+// checkDogs(juliaData1, kateData1);
+// console.log('~~~~~~Test Data 2 ~~~~~~');
+// checkDogs(juliaData2, kateData2);
