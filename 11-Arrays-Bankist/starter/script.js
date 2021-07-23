@@ -337,18 +337,38 @@ GOOD LUCK 😀
 
 
 //! ~~~~~~~~~~~ Chaining Methods ~~~~~~~~~~~~~~~
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-const eurToUsd = 1.1;
+// const eurToUsd = 1.1;
 
-//* PIPELINE
-const totalDepositsUSD = movements
-.filter(mov => mov > 0)
-//* can log the array parameter in the callback function to help debug
-// .map((mov, i, array) => {
-//   console.log(array);
-//   return mov * eurToUsd
-// })
-.map(mov => mov * eurToUsd)
-.reduce((acc, mov) => acc + mov, 0);
-console.log(totalDepositsUSD);
+// //* PIPELINE
+// const totalDepositsUSD = movements
+// .filter(mov => mov > 0)
+// //* can log the array parameter in the callback function to help debug
+// // .map((mov, i, array) => {
+// //   console.log(array);
+// //   return mov * eurToUsd
+// // })
+// .map(mov => mov * eurToUsd)
+// .reduce((acc, mov) => acc + mov, 0);
+// console.log(totalDepositsUSD);
+
+//! ~~~~~~~~~~~~~~ CODE CHALLENGE #3 ~~~~~~~~~~~~~~~~~
+/* 
+Rewrite the 'calcAverageHumanAge' function from the previous challenge, but this time as an arrow function, and using chaining!
+
+TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+
+GOOD LUCK 😀
+*/
+
+// const calcAverageHumanAge = ages => {
+// return ages
+// .map(age => age <= 2 ? age * 2 : 16 + age * 4)
+// .filter((mov) => mov >= 18)
+// .reduce((acc, value, i, arr) => 
+//     (acc + value / arr.length), 0)
+// }
+// console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]))
+// console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]))
