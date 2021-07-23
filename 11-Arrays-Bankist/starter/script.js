@@ -334,3 +334,21 @@ GOOD LUCK 😀
 // }
 // console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]))
 // console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]))
+
+
+//! ~~~~~~~~~~~ Chaining Methods ~~~~~~~~~~~~~~~
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const eurToUsd = 1.1;
+
+//* PIPELINE
+const totalDepositsUSD = movements
+.filter(mov => mov > 0)
+//* can log the array parameter in the callback function to help debug
+// .map((mov, i, array) => {
+//   console.log(array);
+//   return mov * eurToUsd
+// })
+.map(mov => mov * eurToUsd)
+.reduce((acc, mov) => acc + mov, 0);
+console.log(totalDepositsUSD);
