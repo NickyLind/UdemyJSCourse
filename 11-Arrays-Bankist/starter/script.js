@@ -238,18 +238,38 @@ GOOD LUCK 😀
 
 //! ~~~~~~~~~~~~ The Filter Method ~~~~~~~~~~~~~~~~
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-const deposits = movements.filter(function(mov) {
-  return mov > 0;
-  // return a boolean
-});
+// const deposits = movements.filter(function(mov) {
+//   return mov > 0;
+//   // return a boolean
+// });
 
-const withdrawals = movements.filter(function(mov) {
-  return mov < 0;
-  // return a boolean
-});
+// const withdrawals = movements.filter(function(mov) {
+//   return mov < 0;
+//   // return a boolean
+// });
 
-console.log(movements);
-console.log(deposits);
-console.log(withdrawals);
+// console.log(movements);
+// console.log(deposits);
+// console.log(withdrawals);
+
+//! ~~~~~~~~~~~~ The Reduce Method ~~~~~~~~~~~~~~~~~~~~
+
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// console.log(movements);
+
+// //? accumulator => essentially sort of a counter built into the method that increments by the value of the current index
+// //?  2 + 4 + 5 + 1 = 12
+// //? i1  i2  i3  i4 
+// const balance = movements.reduce(function(Accumulator, currentElementOfArray, Index, Array){
+//   console.log(`Iteration ${Index}: ${Accumulator}`);
+//   return Accumulator + currentElementOfArray
+// }, 0);
+// //can pass in an argument after the callback function that starts the acumulator at that value
+
+// //* Simplfied arrow funciton version
+// // const balance = movements.reduce((acc, eValue) => acc + eValue)
+
+// console.log(balance);
