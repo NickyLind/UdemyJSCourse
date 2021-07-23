@@ -273,3 +273,21 @@ GOOD LUCK 😀
 // // const balance = movements.reduce((acc, eValue) => acc + eValue)
 
 // console.log(balance);
+
+// //* Maximum value of movements array
+// //? NOTE reduce method "boils down(reduces)" an array into one value. This doesn't have to be by summing everything together
+
+// const maximumValue = movements.reduce(function(acc, eValue) {
+//   if(eValue < acc) {
+//     return acc 
+//   } else {
+//     return eValue
+//   }
+// }, movements[0]);
+
+// //* DRY'd up version
+// // const maximumValue = movements.reduce((acc, mov) => {
+// //   if ( acc > mov) return acc
+// //   else return mov}, movements[0])
+
+// console.log(maximumValue);
