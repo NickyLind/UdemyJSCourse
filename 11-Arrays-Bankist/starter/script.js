@@ -207,3 +207,31 @@ GOOD LUCK 😀
 // checkDogs(juliaData1, kateData1);
 // console.log('~~~~~~Test Data 2 ~~~~~~');
 // checkDogs(juliaData2, kateData2);
+
+//! ~~~~~~~~~ The Map Method ~~~~~~~~~~~~~
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eruoToUsd = 1.1;
+
+// const movementsUSD = movements.map(function(mov) {
+//   return mov * eruoToUsd;
+// });
+
+//* w/ Arrow Function
+const movementsUSD = movements.map((mov) =>  mov * eruoToUsd
+);
+
+console.log('Movements: ', movements);
+console.log('MovementsUSD: ', movementsUSD);
+
+const movementsUSDfor= [];
+for (const mov of movements) {
+  movementsUSDfor.push(mov * eruoToUsd);
+}
+console.log(movementsUSDfor);
+
+const movementsDescriptions = movements.map((mov, i, arr) => {
+  return `Movement ${i + 1}: You ${mov > 0 ? 'deposited': 'withdrew'} ${Math.abs(mov)}`
+});
+
+movementsDescriptions.forEach((index)=> console.log(index));
