@@ -415,31 +415,59 @@ GOOD LUCK 😀
 
 //! ~~~~~~~~~~~~~~~~ Flat & flatMap Methods ~~~~~~~~~~~~~~~~~
 
-const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
-console.log(arr.flat());
-//?NOTE remove nested arrays and 'flattens' the array values into a single array
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat());
+// //?NOTE remove nested arrays and 'flattens' the array values into a single array
 
-const arrDeep = [[[1, 2], 3], [[4, 5], 6], 7, 8];
+// const arrDeep = [[[1, 2], 3], [[4, 5], 6], 7, 8];
 
-//* ~~~ Flat ~~~~~
+// //* ~~~ Flat ~~~~~
 
-//console.log(arrDeep.flat()); 
-//* flat only flattens one level by defaukt so we will still have values that are arrays, this can be fixed by adding a depth value to the method
-console.log(arrDeep.flat(2));
+// //console.log(arrDeep.flat()); 
+// //* flat only flattens one level by defaukt so we will still have values that are arrays, this can be fixed by adding a depth value to the method
+// console.log(arrDeep.flat(2));
 
-// const accountMovements = accounts.map( acc => acc.movements)
-// console.log(accountMovements);
-// const allMovements = accountMovements.flat()
-// console.log(allMovements);
-// const overallBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+// // const accountMovements = accounts.map( acc => acc.movements)
+// // console.log(accountMovements);
+// // const allMovements = accountMovements.flat()
+// // console.log(allMovements);
+// // const overallBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+// // console.log(overallBalance);
+
+// const overallBalance = accounts.map(acc => acc.movements).flat().reduce((acc, mov) => acc + mov, 0);
 // console.log(overallBalance);
 
-const overallBalance = accounts.map(acc => acc.movements).flat().reduce((acc, mov) => acc + mov, 0);
-console.log(overallBalance);
+// //* ~~~~~~ flatMap ~~~~~~~
+// //?NOTE flatMap only goes one level deep, so map and flat seperately must be used to go deeper
+// const overallBalance2 = accounts
+//   .flatMap( acc => acc.movements)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(overallBalance2);
 
-//* ~~~~~~ flatMap ~~~~~~~
-//?NOTE flatMap only goes one level deep, so map and flat seperately must be used to go deeper
-const overallBalance2 = accounts
-  .flatMap( acc => acc.movements)
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(overallBalance2);
+//! ~~~~~~~~~~~ Sorting Arrays ~~~~~~~~~~~~~
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// //* Strings
+// const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+// console.log(owners.sort());
+// //?NOTE the sort method mutates arrays
+
+// //* Numbers
+
+// // console.log(movements.sort());
+// //?NOTE the sort method alone doesn't really work for numbers, it will try to sort them as if they are strings
+
+// console.log(movements);
+// //* return  < 0 (A, B) (keep order)
+// //* return > 0 (B, A) (switch order)
+// console.log(movements.sort((a, b) => {
+//   //* Think of a & b as any two consecutive numbers in the array
+//   if( a > b) return 1;
+//   if( b > a ) return -1
+// }));
+// //?NOTE to sort in descending order, return the opposite values
+
+// //* Refactor
+// console.log(movements.sort((a, b) => a - b));
+// //? descending order
+// console.log(movements.sort((a, b) => b - a));
