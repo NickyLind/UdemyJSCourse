@@ -500,3 +500,72 @@ console.log(z);
 const movementsUI = Array.from(document.querySelectorAll('.movements__value'), el => el.textContent.replace('€', '$'))
 
 console.log(movementsUI);
+
+//! ~~~~~~~ SUMMARY: Which Array Method to Use? ~~~~~~~~~~
+
+//?NOTE DO I WANT: 
+
+//? To Mutate Original Array:
+//*ADD TO ORIGINAL:
+//* .push() (end)
+//* .unshift() (beginning)
+
+//*REMOVE FROM ORIGINAL:
+//* .pop() (end)
+//* .shift() (beginning)
+//* .splice() (any)
+
+//*OTHERS:
+//* .reverse()
+//* .sort()
+//* .fill()
+
+//? A New Array:
+//*COMPUTED FROM ORIGINAL:
+//* .map() (loop)
+
+//*FILTERED USING CONDITION:
+//* .filter()
+
+//*PORTION OF ORIGINAL:
+//* .slice()
+
+//*ADDING ORIGINAL TO OTHER
+//* .concat
+
+//*FLATTENING THE ORIGINAL:
+//* .flat()
+//* .flatMap()
+
+//? An Array Index:
+//* BASED ON VALUE:
+//* .indexOf() (finds index of value)
+
+//*BASED ON TEST CONDITION:
+//* .findIndex() (test condition we provide in callback function)
+
+//? An Array Element:
+//*BASED ON TEST CONDITION:
+//* .find()
+
+//? Know If An Array Includes:
+//*BASED ON VALUE:
+//* .includes()
+
+//* BASED ON TEST CONDITION:
+//* .some()
+//* .every()
+
+//? A New String:
+//*BASED ON SEPERATOR STRING
+//* .join()
+
+//? To Transform The Value:
+//*BASED ON ACCUMULATOR:
+//* .reduce()
+//* (boils down array to single value of any type: number, string, boolean, or even new array or object)
+
+//? To Simply Loop Array:
+//*BASED ON CALLBACK:
+//* .forEach
+//* (does not create a new array just loops over it)
