@@ -392,6 +392,8 @@ GOOD LUCK 😀
 
 //! ~~~~~~~~~~~~~~~~~ Some & Every ~~~~~~~~~~~~~~~~~
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//* ~~~~~~ SOME ~~~~~~
 console.log(movements);
 
 //*EQUALITY (one)
@@ -400,3 +402,13 @@ console.log(movements.includes(-130));
 //*CONDITION (any)
 const anyDeposits = movements.some( mov => mov > 0)
 console.log(anyDeposits);
+
+//* ~~~~~~~ EVERY ~~~~~~
+console.log(movements.every(mov => mov > 0));
+console.log(account4.movements.every(mov => mov > 0));
+
+//* Seperate callback
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));
