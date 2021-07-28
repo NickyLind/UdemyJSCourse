@@ -391,24 +391,55 @@ GOOD LUCK 😀
 // console.log(account);
 
 //! ~~~~~~~~~~~~~~~~~ Some & Every ~~~~~~~~~~~~~~~~~
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-//* ~~~~~~ SOME ~~~~~~
-console.log(movements);
+// //* ~~~~~~ SOME ~~~~~~
+// console.log(movements);
 
-//*EQUALITY (one)
-console.log(movements.includes(-130));
+// //*EQUALITY (one)
+// console.log(movements.includes(-130));
 
-//*CONDITION (any)
-const anyDeposits = movements.some( mov => mov > 0)
-console.log(anyDeposits);
+// //*CONDITION (any)
+// const anyDeposits = movements.some( mov => mov > 0)
+// console.log(anyDeposits);
 
-//* ~~~~~~~ EVERY ~~~~~~
-console.log(movements.every(mov => mov > 0));
-console.log(account4.movements.every(mov => mov > 0));
+// //* ~~~~~~~ EVERY ~~~~~~
+// console.log(movements.every(mov => mov > 0));
+// console.log(account4.movements.every(mov => mov > 0));
 
-//* Seperate callback
-const deposit = mov => mov > 0;
-console.log(movements.some(deposit));
-console.log(movements.every(deposit));
-console.log(movements.filter(deposit));
+// //* Seperate callback
+// const deposit = mov => mov > 0;
+// console.log(movements.some(deposit));
+// console.log(movements.every(deposit));
+// console.log(movements.filter(deposit));
+
+//! ~~~~~~~~~~~~~~~~ Flat & flatMap Methods ~~~~~~~~~~~~~~~~~
+
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());
+//?NOTE remove nested arrays and 'flattens' the array values into a single array
+
+const arrDeep = [[[1, 2], 3], [[4, 5], 6], 7, 8];
+
+//* ~~~ Flat ~~~~~
+
+//console.log(arrDeep.flat()); 
+//* flat only flattens one level by defaukt so we will still have values that are arrays, this can be fixed by adding a depth value to the method
+console.log(arrDeep.flat(2));
+
+// const accountMovements = accounts.map( acc => acc.movements)
+// console.log(accountMovements);
+// const allMovements = accountMovements.flat()
+// console.log(allMovements);
+// const overallBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+// console.log(overallBalance);
+
+const overallBalance = accounts.map(acc => acc.movements).flat().reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance);
+
+//* ~~~~~~ flatMap ~~~~~~~
+//?NOTE flatMap only goes one level deep, so map and flat seperately must be used to go deeper
+const overallBalance2 = accounts
+  .flatMap( acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance2);
