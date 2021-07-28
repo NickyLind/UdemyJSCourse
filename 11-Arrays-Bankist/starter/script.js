@@ -573,61 +573,61 @@ GOOD LUCK 😀
 
 //! ~~~~~~~~~~ ARRAY METHODS PRACTICE ~~~~~~~~~~~~~~
 
-//* 1) sum deposits of all accounts in bank
+// //* 1) sum deposits of all accounts in bank
+// // const bankDepositSum = accounts
+// //   .map(acc => acc.movements)
+// //   .flat()
+// //   .filter(value => value > 0)
+// //   .reduce((sum , cur) => sum + cur, 0)
+
 // const bankDepositSum = accounts
-//   .map(acc => acc.movements)
-//   .flat()
+//   .flatMap(acc => acc.movements)
 //   .filter(value => value > 0)
 //   .reduce((sum , cur) => sum + cur, 0)
+// console.log(bankDepositSum);
 
-const bankDepositSum = accounts
-  .flatMap(acc => acc.movements)
-  .filter(value => value > 0)
-  .reduce((sum , cur) => sum + cur, 0)
-console.log(bankDepositSum);
+// //* 2) How many deposits in the bank that are >= 1000
+// // const numDeposits1000 = accounts
+// //   .flatMap(acc => acc.movements)
+// //   .filter(mov => mov >=  1000)
+// //   .length
 
-//* 2) How many deposits in the bank that are >= 1000
 // const numDeposits1000 = accounts
 //   .flatMap(acc => acc.movements)
-//   .filter(mov => mov >=  1000)
-//   .length
+//   .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0)
+// console.log(numDeposits1000);
 
-const numDeposits1000 = accounts
-  .flatMap(acc => acc.movements)
-  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0)
-console.log(numDeposits1000);
+// let a = 10;
+// //console.log(a++); //returns 10 because the increament after the variable doesn't return the incremented variable until it is called again
+// console.log(++a);
 
-let a = 10;
-//console.log(a++); //returns 10 because the increament after the variable doesn't return the incremented variable until it is called again
-console.log(++a);
+// //* 3) Using reduce to boil down an array into an object (create an object which contains the sum of the deposits and withdrawals)
 
-//* 3) Using reduce to boil down an array into an object (create an object which contains the sum of the deposits and withdrawals)
+// const {deposits, withdrawals} = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((sums, cur) => {
+//     // cur > 0 ? sums.deposits += cur : sums.withdrawals += cur; //*Refactor
+//     sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur
+//     return sums;
+//   }, {deposits: 0, withdrawals: 0});
 
-const {deposits, withdrawals} = accounts
-  .flatMap(acc => acc.movements)
-  .reduce((sums, cur) => {
-    // cur > 0 ? sums.deposits += cur : sums.withdrawals += cur; //*Refactor
-    sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur
-    return sums;
-  }, {deposits: 0, withdrawals: 0});
+// console.log(deposits, withdrawals);
 
-console.log(deposits, withdrawals);
+// //* 4) Create a function that will convert any string to a Title Case
 
-//* 4) Create a function that will convert any string to a Title Case
+// const convertTitleCase = function(title) {
+//   const exceptions = ['a', 'an', 'the', 'is', 'but', 'or', 'in', 'with']
 
-const convertTitleCase = function(title) {
-  const exceptions = ['a', 'an', 'the', 'is', 'but', 'or', 'in', 'with']
-
-  const titleCase = title
-    .toLowerCase()
-    .split(" ")
-    .map(word => exceptions.includes(word) ? word : word[0].toUpperCase() + word.slice(1))
-    .join(" ")
-    return titleCase
-} 
-console.log(convertTitleCase('this is a nice title'));
-console.log(convertTitleCase('this is a LONG title, but not too long'));
-console.log(convertTitleCase('and here is another title with an EXAMPLE'));
+//   const titleCase = title
+//     .toLowerCase()
+//     .split(" ")
+//     .map(word => exceptions.includes(word) ? word : word[0].toUpperCase() + word.slice(1))
+//     .join(" ")
+//     return titleCase
+// } 
+// console.log(convertTitleCase('this is a nice title'));
+// console.log(convertTitleCase('this is a LONG title, but not too long'));
+// console.log(convertTitleCase('and here is another title with an EXAMPLE'));
 
 
 //! ~~~~~~~~~~~~~ CODING CHALLENGE #4 ~~~~~~~~~~~~~~~~~
@@ -656,3 +656,47 @@ const dogs = [
   { weight: 32, curFood: 340, owners: ['Michael'] }
 ]
 */
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] }
+];
+
+//* 1)
+dogs.forEach(dog => dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28))
+
+console.log(dogs);
+
+//* 2)
+const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(dogSarah);
+console.log(`Sarah's dog is eating too ${dogSarah.curFood > dogSarah.recommendedFood ? 'much' : 'little'}`);
+
+//* 3)
+const ownersEatTooMuch = dogs
+  .filter(dog => dog.curFood > dog.recommendedFood)
+  .flatMap(dog => dog.owners);
+console.log(ownersEatTooMuch);
+
+//* 4)
+// "Matilda and Alice and Bob's dogs eat too much!" 
+// "Sarah and John and Michael's dogs eat too little!"
+console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much`);
+
+//* 5)
+console.log(dogs.some( dog => dog.curFood === dog.recommendedFood));
+
+//* 6)
+const checkEatingOkay = dog => dog.curFood > dog.recommendedFood * .9 && dog.curFood < dog.recommendedFood * 1.1;
+  console.log(dogs.some(checkEatingOkay));
+
+//* 7)
+console.log(dogs.filter(checkEatingOkay));
+
+//* 8)
+// sort it by recommended food portion in an ascending order
+const dogsSorted = dogs.slice().sort((a, b) => a.recommendedFood - b.recommendedFood)
+
+console.log(dogsSorted);
