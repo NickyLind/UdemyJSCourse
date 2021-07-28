@@ -471,3 +471,32 @@ GOOD LUCK 😀
 // console.log(movements.sort((a, b) => a - b));
 // //? descending order
 // console.log(movements.sort((a, b) => b - a));
+
+//! ~~~~~~~ More Ways of Creating and Filling Arrays ~~~~~~~~
+
+//* ~~~ Empty arrays & Fill Method ~~~~~~
+//?NOTE creates an array with 7 empty elements
+const x = new Array(7);
+console.log(x);
+
+//?NOTE the fill method fills an array with the inputted value (destructive)
+x.fill(1, 3, 5)
+//?NOTE the first parameter is the value being filled, the second and third parameters are the startin g and end points to fill the array
+console.log(x);
+
+//* ~~~~~ Array.from ~~~~~~~~~~~
+
+//?NOTE this method is called on the Array contructor itself
+const y = Array.from({length: 7}, () => 1);
+//?NOTE the first parameter is an object with a length property that defines the length of the array, the second parameter is a callback function that fills that array
+console.log(y);
+
+const z = Array.from({length: 7}, (_, i) => {
+  return i + 1
+});
+
+console.log(z);
+
+const movementsUI = Array.from(document.querySelectorAll('.movements__value'), el => el.textContent.replace('€', '$'))
+
+console.log(movementsUI);
