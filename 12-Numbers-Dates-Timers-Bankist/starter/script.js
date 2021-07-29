@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////
 // Data
 const account1 = {
-  owner: 'Jonas Schmedtmann',
+  owner: 'Nick Lindau',
   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   interestRate: 1.2, // %
   pin: 1111,
@@ -154,7 +154,7 @@ btnLogin.addEventListener('click', function(event){
   event.preventDefault()
   //a button on a form will submit and reload the page by default
   currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value)
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  if (currentAccount?.pin === +(inputLoginPin.value)) {
     labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}!`;
     containerApp.style.opacity = 100;
 
@@ -169,7 +169,7 @@ btnLogin.addEventListener('click', function(event){
 
 btnTransfer.addEventListener('click', function(event){
   event.preventDefault();
-  const amount = Number(inputTransferAmount.value);
+  const amount = +(inputTransferAmount.value);
   const recieverAccount = accounts.find(acc => acc.username === inputTransferTo.value)
   inputTransferTo.value = inputTransferAmount.value = '';
 
@@ -185,7 +185,7 @@ btnTransfer.addEventListener('click', function(event){
 
 btnLoan.addEventListener('click', function(event){
   event.preventDefault();
-  const amount = Number(inputLoanAmount.value);
+  const amount = +(inputLoanAmount.value);
   if(amount> 0 && currentAccount.movements.some(mov => mov >= amount / 10)) {
     //Add movement
     currentAccount.movements.push(amount);
@@ -200,7 +200,7 @@ btnClose.addEventListener('click', function(event){
   event.preventDefault();
   inputCloseUsername.value = inputClosePin.value = '';
 
-  if(inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin){
+  if(inputCloseUsername.value === currentAccount.username && +(inputClosePin.value) === currentAccount.pin){
     const index = accounts.findIndex(acc => acc.username === currentAccount.username)
     console.log(index);
 
@@ -225,3 +225,37 @@ console.log(accounts);
 /////////////////////////////////////////////////
 // LECTURES
 
+//! ~~~~~~~~~~~ Converting and Checking Numbers ~~~~~~~~~~~
+
+console.log(23 === 23.0);
+//?NOTE Base 10 is numbers 0-9 (what we use generally in the real-world)
+//?NOTE Base 2 is binary and uses number 0 & 1
+console.log(0.1 + 0.2);
+// Base 10  >>> 1/10 = 0.1  >>>> 3/10 = 3.33333333
+console.log(0.1 + 0.2 === 0.3) //will equate to false
+
+//* Conversion
+console.log((Number('23')));
+console.log(+ '23');
+
+//* Parsing
+console.log(Number.parseInt('30px', 10));
+console.log(Number.parseInt('e23', 10)); // string must start with a number
+
+console.log(Number.parseFloat('2.5rem'));
+console.log(Number.parseInt('2.5rem'));
+
+//?NOTE parseInt and parseFloat are global function so they can be called without calling them on the Number object
+
+console.log(Number.isNaN(20));
+console.log(Number.isNaN('20'));
+console.log(Number.isNaN(+'20X'));
+console.log(Number.isNaN(23 / 0));
+
+//* Checking if value is a number
+console.log(Number.isFinite(20));
+console.log(Number.isFinite('20'));
+console.log(Number.isFinite(+'20x'));
+console.log(Number.isFinite(23 / 0));
+
+//! ~~~~~~~~~~~ Math & Rounding ~~~~~~~~~~~~~
