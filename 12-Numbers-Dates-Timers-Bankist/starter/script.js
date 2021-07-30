@@ -169,11 +169,38 @@ const updateUI = function(acc){
   
       //Display summary
       calcDisplaySummary(acc)
-}
+};
+
+const startLogOutTimer = () => {
+  const tick = () => {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0)
+    const sec = String(time % 60).padStart(2, 0)
+    //in each call, print the remaining time to the UI
+    labelTimer.textContent = `${min}:${sec}`;
+
+    
+    //when the time is at zero, stop timer and log out user
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = 'Log in to get started'
+      containerApp.style.opacity = 0;
+    }
+    //decrease 1s
+    time--;
+    
+  }
+  //set time to 5 minutes
+  let time = 120;
+
+  //call the timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+  return timer
+};
 
 
 //Event handler
-let currentAccount;
+let currentAccount, timer;
 
 // //TODO Temp LOGGED IN
 // currentAccount = account1
@@ -216,6 +243,12 @@ btnLogin.addEventListener('click', function(event){
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur()
 
+    //Timer reset
+    if (timer) clearInterval(timer); //if the timer exists, clear it
+
+    // Start Logout Timer
+    timer = startLogOutTimer(); //set the timer equal to a new timer function
+
     //Update UI
     updateUI(currentAccount)
   }
@@ -237,7 +270,11 @@ btnTransfer.addEventListener('click', function(event){
 
       // Add transfer date
       currentAccount.movementsDates.push(new Date().toISOString());
-      recieverAccount.movementsDates.push(new Date().toISOString())
+      recieverAccount.movementsDates.push(new Date().toISOString());
+
+      //Reset Timer
+      clearInterval(timer);
+      timer = startLogOutTimer();
 
       // Update UI
       updateUI(currentAccount)
@@ -259,6 +296,8 @@ btnLoan.addEventListener('click', function(event){
     updateUI(currentAccount)
     }, 2500)
   }
+  clearInterval(timer);
+  timer = startLogOutTimer();
   inputLoanAmount.value = '';
 });
 
@@ -505,3 +544,6 @@ console.log(accounts);
 //   const now = new Date();
 //   console.log(now);
 // }, 3000);
+
+//! ~~~~~~~~~~~~~~~~~~~ Implementing a Countdown Timer ~~~~~~~~~~~~~~~~~~~
+
