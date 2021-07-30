@@ -354,3 +354,41 @@ console.log(accounts);
 // //Divisions
 // console.log(10n / 3n); //returns closest bigint
 // console.log(10 / 3);
+
+//! ~~~~~~~~~~~~~~~~~~~ Creating Dates ~~~~~~~~~~~~~~~~~~~~~
+
+
+// //* Creating Dates ( 3 methods)
+
+// //*1) instantiate new date object
+// const now = new Date();
+// console.log(now);
+
+// //*2) Pass in a date string (or number series)
+// console.log(new Date('Jul 29 2021 19:38:32'));
+// console.log(new Date('December 25, 2015'));
+// console.log(new Date(account1.movementsDates[0]));
+// console.log(new Date(2037, 10, 19, 15, 23, 5));
+// //?NOTE MONTHS ARE 0 BASED (November = 10)
+// console.log(new Date(2037, 10, 31)); // auto-corrects to dec 1 (nov 31 is not real)
+// //?NOTE Beginning of Unix time is Jan 1, 1970
+// console.log(new Date(0));
+// console.log(new Date(3 * 24 * 60 * 60 * 1000));
+
+//*3) Working with Dates
+const future = new Date(2037, 10, 15, 15, 23);
+console.log(future);
+console.log(future.getFullYear()); //! dont use getYear
+console.log(future.getMonth()); //month is zero based (10)
+console.log(future.getDate()); // day
+console.log(future.getDay()); // day of week
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString()); // returns a string in simplified extended ISO format
+console.log(future.getTime()); //number of time since Unix Epoch
+
+console.log(Date.now()); //gives current timestamp
+
+future.setFullYear(2040); //changes year for date
+console.log(future);
