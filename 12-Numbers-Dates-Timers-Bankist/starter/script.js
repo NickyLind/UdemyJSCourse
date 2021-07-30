@@ -1,14 +1,10 @@
 'use strict';
-
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
 // BANKIST APP
 
-/////////////////////////////////////////////////
 // Data
 const account1 = {
   owner: 'Nick Lindau',
-  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
+  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300, 120, -35],
   interestRate: 1.2, // %
   pin: 1111,
 
@@ -21,6 +17,8 @@ const account1 = {
     '2020-05-27T17:01:17.194Z',
     '2020-07-11T23:36:17.929Z',
     '2020-07-12T10:51:36.790Z',
+    '2021-07-29T10:51:36.790Z',
+    '2021-07-27T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -85,18 +83,38 @@ const createUsernames = function(accs) {
   });
 };
 
-createUsernames(accounts);
+createUsernames(accounts);   
+
+const formatMovementDate = function(date, locale) {
+  const calcDaysPassed = (date1, date2) => Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+  const daysPassed = calcDaysPassed(new Date(), date)
+  console.log(daysPassed);
+  if(daysPassed === 0) return 'Today';
+  if(daysPassed === 1) return 'Yesterday';
+  if(daysPassed <= 7) return `${daysPassed} days ago`
+  else{
+    return new Intl.DateTimeFormat(locale).format(date)
+  }
+}
+
+
+
 // Function for displaying rows of deposits/withdrawls
-const displayMovements = function(movements, sort = false) {
+const displayMovements = function(acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements
+  const movs = sort ? acc.movements.slice().sort((a, b) => a - b) : acc.movements
 
   movs.forEach(function(mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal'
+    const date = new Date(acc.movementsDates[i])
+    const displayDate = formatMovementDate(date, acc.locale)
+
+
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+      <div class="movements__date">${displayDate}</div>
       <div class="movements__value">${mov.toFixed(2)}€</div>
     </div>
     `
@@ -137,7 +155,7 @@ const calcDisplayBalance = function(acc) {
 // Function for updating the UI
 const updateUI = function(acc){
       //Display movements
-      displayMovements(acc.movements)
+      displayMovements(acc)
 
       //Display balance
       calcDisplayBalance(acc)
@@ -150,13 +168,42 @@ const updateUI = function(acc){
 //Event handler
 let currentAccount;
 
+// //TODO Temp LOGGED IN
+// currentAccount = account1
+// updateUI(currentAccount)
+// containerApp.style.opacity = 100;
+// //TODO Remove Temp LOGGED IN
+
+
 btnLogin.addEventListener('click', function(event){
   event.preventDefault()
   //a button on a form will submit and reload the page by default
   currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value)
-  if (currentAccount?.pin === +(inputLoginPin.value)) {
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
     labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}!`;
     containerApp.style.opacity = 100;
+
+    // Create current date and time
+    const now = new Date();
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      weekday: 'short' //can do narrow also
+    };
+    // const locale = navigator.language;
+    
+    labelDate.textContent = new Intl.DateTimeFormat(currentAccount.locale, options).format(now)
+
+    //* manual date/time
+    // const day = `${now.getDate()}`.padStart(2, '0');
+    // const month = `${now.getMonth()+ 1}`.padStart(2, 0) ;
+    // const year = now.getFullYear();
+    // const hours = `${now.getHours()}`.padStart(2, 0);
+    // const minutes = `${now.getMinutes()}`.padStart(2, 0);
+    // labelDate.textContent = `${month}/${day}/${year}, ${hours}:${minutes}`
 
     //Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -169,7 +216,7 @@ btnLogin.addEventListener('click', function(event){
 
 btnTransfer.addEventListener('click', function(event){
   event.preventDefault();
-  const amount = +(inputTransferAmount.value);
+  const amount = Number(inputTransferAmount.value);
   const recieverAccount = accounts.find(acc => acc.username === inputTransferTo.value)
   inputTransferTo.value = inputTransferAmount.value = '';
 
@@ -177,8 +224,15 @@ btnTransfer.addEventListener('click', function(event){
     recieverAccount &&
     currentAccount.balance >= amount && 
     recieverAccount?.username !== currentAccount.username) {
+      // Doing the transfer
       currentAccount.movements.push(-amount);
       recieverAccount.movements.push(amount);
+
+      // Add transfer date
+      currentAccount.movementsDates.push(new Date().toISOString());
+      recieverAccount.movementsDates.push(new Date().toISOString())
+
+      // Update UI
       updateUI(currentAccount)
   }
 });
@@ -190,6 +244,9 @@ btnLoan.addEventListener('click', function(event){
     //Add movement
     currentAccount.movements.push(amount);
 
+    //Add loan date
+    currentAccount.movementsDates.push(new Date().toISOString())
+
     //Update UI
     updateUI(currentAccount)
   }
@@ -200,7 +257,7 @@ btnClose.addEventListener('click', function(event){
   event.preventDefault();
   inputCloseUsername.value = inputClosePin.value = '';
 
-  if(inputCloseUsername.value === currentAccount.username && +(inputClosePin.value) === currentAccount.pin){
+  if(inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin){
     const index = accounts.findIndex(acc => acc.username === currentAccount.username)
     console.log(index);
 
@@ -215,7 +272,7 @@ btnClose.addEventListener('click', function(event){
 let sorted = false
 btnSort.addEventListener('click', function(event) {
   event.preventDefault();
-  displayMovements(currentAccount.movements, !sorted)
+  displayMovements(currentAccount, !sorted)
   sorted = !sorted
 });
 
@@ -230,7 +287,6 @@ labelBalance.addEventListener('click', function () {
     }
   });
 });
-
 
 console.log(accounts);
 
@@ -395,10 +451,13 @@ console.log(accounts);
 
 //! ~~~~~~~~~~~ Operations with Dates ~~~~~~~~~~~~~~~
 
-const future = new Date(2037, 10, 15, 15, 23);
-console.log(+future);
+// const future = new Date(2037, 10, 15, 15, 23);
+// console.log(+future);
 
-const calcDaysPassed = (date1, date2) => Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+// const calcDaysPassed = (date1, date2) => Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
 
-const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 4) )
-console.log(days1);
+// const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 4) )
+// console.log(days1);
+
+//! ~~~~~~~~~~~~~~~~~ Internationalizing Dates (Intl) ~~~~~~~~~~~~~~~~~
+
