@@ -97,7 +97,7 @@ const displayMovements = function(movements, sort = false) {
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-      <div class="movements__value">${mov}€</div>
+      <div class="movements__value">${mov.toFixed(2)}€</div>
     </div>
     `
     containerMovements.insertAdjacentHTML('afterbegin', html)
@@ -110,12 +110,12 @@ const calcDisplaySummary = function(acc){
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0)
-  labelSumIn.textContent = `${incomes}€`
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`
 
   const out = acc.movements
   .filter(mov => mov < 0)
   .reduce((acc, mov) => acc - mov, 0)
-  labelSumOut.textContent = `${out}€`
+  labelSumOut.textContent = `${out.toFixed(2)}€`
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -123,7 +123,7 @@ const calcDisplaySummary = function(acc){
     .filter((int, i, array) => int >= 1
     )
     .reduce((acc, int) => acc + int, 0)
-  labelSumInterest.textContent = `${interest}€`
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`
 }
 
 // Function for displaying total account balance
@@ -131,7 +131,7 @@ const calcDisplayBalance = function(acc) {
   acc.balance = acc.movements.reduce(function(acc, mov) {
     return acc + mov
   }, 0);
-  labelBalance.textContent = `${acc.balance}€`
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`
 };
 
 // Function for updating the UI
@@ -185,7 +185,7 @@ btnTransfer.addEventListener('click', function(event){
 
 btnLoan.addEventListener('click', function(event){
   event.preventDefault();
-  const amount = +(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
   if(amount> 0 && currentAccount.movements.some(mov => mov >= amount / 10)) {
     //Add movement
     currentAccount.movements.push(amount);
@@ -227,35 +227,68 @@ console.log(accounts);
 
 //! ~~~~~~~~~~~ Converting and Checking Numbers ~~~~~~~~~~~
 
-console.log(23 === 23.0);
-//?NOTE Base 10 is numbers 0-9 (what we use generally in the real-world)
-//?NOTE Base 2 is binary and uses number 0 & 1
-console.log(0.1 + 0.2);
-// Base 10  >>> 1/10 = 0.1  >>>> 3/10 = 3.33333333
-console.log(0.1 + 0.2 === 0.3) //will equate to false
+// console.log(23 === 23.0);
+// //?NOTE Base 10 is numbers 0-9 (what we use generally in the real-world)
+// //?NOTE Base 2 is binary and uses number 0 & 1
+// console.log(0.1 + 0.2);
+// // Base 10  >>> 1/10 = 0.1  >>>> 3/10 = 3.33333333
+// console.log(0.1 + 0.2 === 0.3) //will equate to false
 
-//* Conversion
-console.log((Number('23')));
-console.log(+ '23');
+// //* Conversion
+// console.log((Number('23')));
+// console.log(+ '23');
 
-//* Parsing
-console.log(Number.parseInt('30px', 10));
-console.log(Number.parseInt('e23', 10)); // string must start with a number
+// //* Parsing
+// console.log(Number.parseInt('30px', 10));
+// console.log(Number.parseInt('e23', 10)); // string must start with a number
 
-console.log(Number.parseFloat('2.5rem'));
-console.log(Number.parseInt('2.5rem'));
+// console.log(Number.parseFloat('2.5rem'));
+// console.log(Number.parseInt('2.5rem'));
 
-//?NOTE parseInt and parseFloat are global function so they can be called without calling them on the Number object
+// //?NOTE parseInt and parseFloat are global function so they can be called without calling them on the Number object
 
-console.log(Number.isNaN(20));
-console.log(Number.isNaN('20'));
-console.log(Number.isNaN(+'20X'));
-console.log(Number.isNaN(23 / 0));
+// console.log(Number.isNaN(20));
+// console.log(Number.isNaN('20'));
+// console.log(Number.isNaN(+'20X'));
+// console.log(Number.isNaN(23 / 0));
 
-//* Checking if value is a number
-console.log(Number.isFinite(20));
-console.log(Number.isFinite('20'));
-console.log(Number.isFinite(+'20x'));
-console.log(Number.isFinite(23 / 0));
+// //* Checking if value is a number
+// console.log(Number.isFinite(20));
+// console.log(Number.isFinite('20'));
+// console.log(Number.isFinite(+'20x'));
+// console.log(Number.isFinite(23 / 0));
 
 //! ~~~~~~~~~~~ Math & Rounding ~~~~~~~~~~~~~
+
+// console.log(Math.sqrt(25));
+// console.log(25 ** (1/2));
+// console.log(8 ** (1/3));
+
+// console.log(Math.max(5, 18, 23, 11, 2));
+
+// console.log(Math.min(5, 18, 23, 11, 2));
+
+// console.log(Math.PI * Number.parseFloat('10px') ** 2);
+
+// console.log(Math.trunc(Math.random() * 6) + 1);
+
+// const randomInt = (min, max) => Math.trunc(Math.random() * (max - min) + 1)
+
+//* Rounding Integers
+console.log(`Math.trunc(23.3) = ${Math.trunc(23.3)}`);
+console.log(`Math.trunc(23.7) = ${Math.trunc(23.7)}`);
+
+console.log(`Math.round(23.7) = ${Math.round(23.7)}`);
+console.log(`Math.round(23.3) = ${Math.round(23.3)}`);
+
+console.log(`Math.floor(23.3) = ${Math.floor(23.3)}`);
+console.log(`Math.floor(23.7) = ${Math.floor(23.7)}`);
+
+console.log(`Math.trunc(-23.3) = ${Math.trunc(-23.3)}`);
+console.log(`Math.floor(-23.3) = ${Math.floor(-23.3)}`);
+console.log(`Math.floor(-23.7) = ${Math.floor(-23.7)}`);
+
+//* Rounding Decimals
+console.log(`(2.7).toFixed(0) = ${(2.7).toFixed(0)}`);
+console.log(`(2.7).toFixed(3) = ${(2.7).toFixed(3)}`);
+console.log(`(2.345).toFixed(2) = ${(2.345).toFixed(2)}`);
