@@ -306,13 +306,51 @@ console.log(accounts);
 // console.log(`(2.7).toFixed(3) = ${(2.7).toFixed(3)}`);
 // console.log(`(2.345).toFixed(2) = ${(2.345).toFixed(2)}`);
 
-//! ~~~~~~~~~~ The Remainder Operator ~~~~~~~~~~~~
+//! ~~~~~~~~~~ The Remainder Operator ~~~~~~~~~~~~~~~~
 
-console.log(`5 % 2 = ${5 % 2} (2 * 2 + 1)`);
-console.log(`8 % 3 = ${8 % 3} (3 * 3 + 2)`);
+// console.log(`5 % 2 = ${5 % 2} (2 * 2 + 1)`);
+// console.log(`8 % 3 = ${8 % 3} (3 * 3 + 2)`);
 
-const isEven = n => n % 2 === 0;
+// const isEven = n => n % 2 === 0;
 
-console.log(`8 is even - ${isEven(8)}`);
-console.log(`23 is even - ${isEven(23)}`);
-console.log(`514 is even - ${isEven(514)}`);
+// console.log(`8 is even - ${isEven(8)}`);
+// console.log(`23 is even - ${isEven(23)}`);
+// console.log(`514 is even - ${isEven(514)}`);
+
+//! ~~~~~~~~~~~ Working with BigInt ~~~~~~~~~~~~~~~~~~
+// //?NOTE every number is created using 64 bits (64 1s and 0s), but only 53 of them are used for creating the actual number while the rest are used for decimal placement, etc.
+
+// console.log(2 ** 53 - 1); // this is the largest number that can be acurately represented using integerts
+// console.log(Number.MAX_SAFE_INTEGER);
+// //* example (adding 2 do the equation above to get the max safe int)
+// console.log(2 ** 53 + 1); //! ONLY ADDS 1 INT INSTEAD OF 2!
+
+// //?NOTE BigInt was introduced in ES2020 and allows us to create integers as large as we want
+
+// console.log(7198263479126371628737891723897123n);//adding 'n' transforms regular int into a BigInt
+// console.log(BigInt(7198263479126371628737891723897123));
+// //? the BigInt constructor should only be instantiated with smaller numbers still (the above two examples will be different still)
+// console.log(BigInt(719826347));
+
+// //* Operations
+// console.log(10000n + 10000n); //still the same
+// console.log(128037891273981273981273981723123n * 1000000n);
+
+// const huge = 18273981273981723987189237n
+// const num = 23
+// //console.log(huge * num); //! this will throw an error (cannot use BigInts and regular ints in the same expression)
+// //?NOTE this is where the BigInt constructor somes in handy
+// console.log(huge * BigInt(num));
+
+// //Exceptions (logical operators)
+// console.log(20n > 15); //true
+// console.log(20n === 20); //false (=== will not do type coercion)
+// console.log(typeof 20n); //bigint
+// console.log(20n == 20); //true
+
+// //Exceptions (string concatonations)
+// console.log(huge + ' is REALLY big!!!');
+
+// //Divisions
+// console.log(10n / 3n); //returns closest bigint
+// console.log(10 / 3);
