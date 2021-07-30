@@ -375,20 +375,30 @@ console.log(accounts);
 // console.log(new Date(0));
 // console.log(new Date(3 * 24 * 60 * 60 * 1000));
 
-//*3) Working with Dates
+// //*3) Working with Dates
+// const future = new Date(2037, 10, 15, 15, 23);
+// console.log(future);
+// console.log(future.getFullYear()); //! dont use getYear
+// console.log(future.getMonth()); //month is zero based (10)
+// console.log(future.getDate()); // day
+// console.log(future.getDay()); // day of week
+// console.log(future.getHours());
+// console.log(future.getMinutes());
+// console.log(future.getSeconds());
+// console.log(future.toISOString()); // returns a string in simplified extended ISO format
+// console.log(future.getTime()); //number of time since Unix Epoch
+
+// console.log(Date.now()); //gives current timestamp
+
+// future.setFullYear(2040); //changes year for date
+// console.log(future);
+
+//! ~~~~~~~~~~~ Operations with Dates ~~~~~~~~~~~~~~~
+
 const future = new Date(2037, 10, 15, 15, 23);
-console.log(future);
-console.log(future.getFullYear()); //! dont use getYear
-console.log(future.getMonth()); //month is zero based (10)
-console.log(future.getDate()); // day
-console.log(future.getDay()); // day of week
-console.log(future.getHours());
-console.log(future.getMinutes());
-console.log(future.getSeconds());
-console.log(future.toISOString()); // returns a string in simplified extended ISO format
-console.log(future.getTime()); //number of time since Unix Epoch
+console.log(+future);
 
-console.log(Date.now()); //gives current timestamp
+const calcDaysPassed = (date1, date2) => Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
 
-future.setFullYear(2040); //changes year for date
-console.log(future);
+const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 4) )
+console.log(days1);
