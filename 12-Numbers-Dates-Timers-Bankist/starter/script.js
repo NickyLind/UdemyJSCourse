@@ -219,6 +219,19 @@ btnSort.addEventListener('click', function(event) {
   sorted = !sorted
 });
 
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function(row, i) {
+    if (i % 2 === 0) {
+      row.style.backgroundColor = 'orangered'
+    }
+    if(i % 3 === 0) {
+      row.style.backgroundColor = 'blue'
+      row.style.color = 'white'
+    }
+  });
+});
+
+
 console.log(accounts);
 
 /////////////////////////////////////////////////
@@ -274,21 +287,32 @@ console.log(accounts);
 
 // const randomInt = (min, max) => Math.trunc(Math.random() * (max - min) + 1)
 
-//* Rounding Integers
-console.log(`Math.trunc(23.3) = ${Math.trunc(23.3)}`);
-console.log(`Math.trunc(23.7) = ${Math.trunc(23.7)}`);
+// //* Rounding Integers
+// console.log(`Math.trunc(23.3) = ${Math.trunc(23.3)}`);
+// console.log(`Math.trunc(23.7) = ${Math.trunc(23.7)}`);
 
-console.log(`Math.round(23.7) = ${Math.round(23.7)}`);
-console.log(`Math.round(23.3) = ${Math.round(23.3)}`);
+// console.log(`Math.round(23.7) = ${Math.round(23.7)}`);
+// console.log(`Math.round(23.3) = ${Math.round(23.3)}`);
 
-console.log(`Math.floor(23.3) = ${Math.floor(23.3)}`);
-console.log(`Math.floor(23.7) = ${Math.floor(23.7)}`);
+// console.log(`Math.floor(23.3) = ${Math.floor(23.3)}`);
+// console.log(`Math.floor(23.7) = ${Math.floor(23.7)}`);
 
-console.log(`Math.trunc(-23.3) = ${Math.trunc(-23.3)}`);
-console.log(`Math.floor(-23.3) = ${Math.floor(-23.3)}`);
-console.log(`Math.floor(-23.7) = ${Math.floor(-23.7)}`);
+// console.log(`Math.trunc(-23.3) = ${Math.trunc(-23.3)}`);
+// console.log(`Math.floor(-23.3) = ${Math.floor(-23.3)}`);
+// console.log(`Math.floor(-23.7) = ${Math.floor(-23.7)}`);
 
-//* Rounding Decimals
-console.log(`(2.7).toFixed(0) = ${(2.7).toFixed(0)}`);
-console.log(`(2.7).toFixed(3) = ${(2.7).toFixed(3)}`);
-console.log(`(2.345).toFixed(2) = ${(2.345).toFixed(2)}`);
+// //* Rounding Decimals
+// console.log(`(2.7).toFixed(0) = ${(2.7).toFixed(0)}`);
+// console.log(`(2.7).toFixed(3) = ${(2.7).toFixed(3)}`);
+// console.log(`(2.345).toFixed(2) = ${(2.345).toFixed(2)}`);
+
+//! ~~~~~~~~~~ The Remainder Operator ~~~~~~~~~~~~
+
+console.log(`5 % 2 = ${5 % 2} (2 * 2 + 1)`);
+console.log(`8 % 3 = ${8 % 3} (3 * 3 + 2)`);
+
+const isEven = n => n % 2 === 0;
+
+console.log(`8 is even - ${isEven(8)}`);
+console.log(`23 is even - ${isEven(23)}`);
+console.log(`514 is even - ${isEven(514)}`);
