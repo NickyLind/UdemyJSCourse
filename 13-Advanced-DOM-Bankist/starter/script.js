@@ -35,6 +35,39 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', (e) => {
+  e.preventDefault();
+  const s1coords = section1.getBoundingClientRect();
+  //?NOTE this finds the position in the DOM RELATIVE TO OUR CLIENT VIEWPORT where our section1 is (we want the top and left coordinates specifically)
+  // console.log(s1coords);
+
+  // console.log('Current scroll (X/Y', window.pageXOffset, window.pageYOffset);
+  //?NOTE this tells us where our viewport is in relation to the window (the entire webpage) (we are specifically looking for the x and y offset of our viewport in relation to the entire window object)
+
+  // console.log('height/width viewport', document.documentElement.clientHeight, document.documentElement.clientWidth); 
+  //?NOTE This tells us the width and height of our viewport (our client AKA what we're currently seeing from the webpage in our window)
+
+  //* Scrolling
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset, 
+  //   s1coords.top + window.pageYOffset
+  //   );
+  //?NOTE s1coords.left = how far left from the client viewport our section is
+  //?NOTE s1coords.top = how far from the top of the viewport our seciton is
+  //?NOTE window.pageXOffSet = The difference between the actual edge of the webpage and the client view port
+  //?NOTE window.pageTOffset = The difference between the actual top of the webpage and the client viewport
+  //?NOTE IN CONCLUSION, adding the values together gives us the true location of the object between our viewport and the window object
+  window.scrollTo({
+    left: s1coords.left + window.pageXOffset,
+    top: s1coords.top + window.pageYOffset,
+    behavior: "smooth"
+    //?NOTE creates a smooth scroll to the destination vs an immediate scroll
+  });
+});
+
 //! ~~~~~~~~ Selecting, Creating, and Deleting Elements ~~~~~~~
 
 
@@ -78,51 +111,51 @@ document.querySelector('.btn--close-cookie').addEventListener('click', () => {
 
 //! ~~~~~~~~~~ Styles Attributes & Classes ~~~~~~~~~~~~~~
 
-//* Styles
-message.style.backgroundColor = "#37383d";
-message.style.width = "120%";
+// //* Styles
+// message.style.backgroundColor = "#37383d";
+// message.style.width = "120%";
 
-console.log(message.style.height); //can only read inline styles we have set using the styles propery
-console.log(message.style.backgroundColor); //will work since we set it above.
+// console.log(message.style.height); //can only read inline styles we have set using the styles propery
+// console.log(message.style.backgroundColor); //will work since we set it above.
 
-console.log(getComputedStyle(message)); //this will give ALL values of css properties for passed in argument
+// console.log(getComputedStyle(message)); //this will give ALL values of css properties for passed in argument
 
-console.log(getComputedStyle(message).height);
+// console.log(getComputedStyle(message).height);
 
-message.style.height = Number.parseFloat(getComputedStyle(message).height) + 30 + 'px';
+// message.style.height = Number.parseFloat(getComputedStyle(message).height) + 30 + 'px';
 
-document.documentElement.style.setProperty('--color-primary', 'orangered') // This changes the css properties that are in the :root class property. we can use these root properties to change anything they are applied to all at the same time
+// document.documentElement.style.setProperty('--color-primary', 'orangered') // This changes the css properties that are in the :root class property. we can use these root properties to change anything they are applied to all at the same time
 
-//* Attributes
-const logo = document.querySelector('.nav__logo');
-console.log(logo.alt);
-console.log(logo.className);
+// //* Attributes
+// const logo = document.querySelector('.nav__logo');
+// console.log(logo.alt);
+// console.log(logo.className);
 
-logo.alt = 'Beautiful Minimalist Logo'
+// logo.alt = 'Beautiful Minimalist Logo'
 
-// Non-standard
-console.log(logo.designer); //will only read standard properties for the element
-console.log(logo.getAttribute('designer'));
-logo.setAttribute('company', 'Bankist');
+// // Non-standard
+// console.log(logo.designer); //will only read standard properties for the element
+// console.log(logo.getAttribute('designer'));
+// logo.setAttribute('company', 'Bankist');
 
 
-console.log(logo.src);
-console.log(logo.getAttribute('src'))
+// console.log(logo.src);
+// console.log(logo.getAttribute('src'))
 
-const link = document.querySelector('.twitter-link');
-console.log(link.href);
-console.log(link.getAttribute('href'));
+// const link = document.querySelector('.twitter-link');
+// console.log(link.href);
+// console.log(link.getAttribute('href'));
 
-const btnLink = document.querySelector('.nav__link--btn');
-console.log(btnLink.href);
-console.log(btnLink.getAttribute('href'));
+// const btnLink = document.querySelector('.nav__link--btn');
+// console.log(btnLink.href);
+// console.log(btnLink.getAttribute('href'));
 
-// Data Attributes
-console.log(logo.dataset.versionNumber);
+// // Data Attributes
+// console.log(logo.dataset.versionNumber);
 
-// Classes
-logo.classList.add('c', 'k');
-logo.classList.remove('c', 'k');
-logo.classList.toggle('c');
-logo.classList.contains('c'); //not includes
+// // Classes
+// logo.classList.add('c', 'k');
+// logo.classList.remove('c', 'k');
+// logo.classList.toggle('c');
+// logo.classList.contains('c'); //not includes
 
