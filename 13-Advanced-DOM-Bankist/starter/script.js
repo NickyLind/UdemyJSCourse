@@ -76,3 +76,53 @@ document.querySelector('.btn--close-cookie').addEventListener('click', () => {
   // message.parentElement.removeChild(message) //NOTEolder method
 });
 
+//! ~~~~~~~~~~ Styles Attributes & Classes ~~~~~~~~~~~~~~
+
+//* Styles
+message.style.backgroundColor = "#37383d";
+message.style.width = "120%";
+
+console.log(message.style.height); //can only read inline styles we have set using the styles propery
+console.log(message.style.backgroundColor); //will work since we set it above.
+
+console.log(getComputedStyle(message)); //this will give ALL values of css properties for passed in argument
+
+console.log(getComputedStyle(message).height);
+
+message.style.height = Number.parseFloat(getComputedStyle(message).height) + 30 + 'px';
+
+document.documentElement.style.setProperty('--color-primary', 'orangered') // This changes the css properties that are in the :root class property. we can use these root properties to change anything they are applied to all at the same time
+
+//* Attributes
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt);
+console.log(logo.className);
+
+logo.alt = 'Beautiful Minimalist Logo'
+
+// Non-standard
+console.log(logo.designer); //will only read standard properties for the element
+console.log(logo.getAttribute('designer'));
+logo.setAttribute('company', 'Bankist');
+
+
+console.log(logo.src);
+console.log(logo.getAttribute('src'))
+
+const link = document.querySelector('.twitter-link');
+console.log(link.href);
+console.log(link.getAttribute('href'));
+
+const btnLink = document.querySelector('.nav__link--btn');
+console.log(btnLink.href);
+console.log(btnLink.getAttribute('href'));
+
+// Data Attributes
+console.log(logo.dataset.versionNumber);
+
+// Classes
+logo.classList.add('c', 'k');
+logo.classList.remove('c', 'k');
+logo.classList.toggle('c');
+logo.classList.contains('c'); //not includes
+
