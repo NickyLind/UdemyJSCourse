@@ -65,6 +65,9 @@ btnScrollTo.addEventListener('click', (e) => {
     top: s1coords.top + window.pageYOffset,
     behavior: "smooth"
     //?NOTE creates a smooth scroll to the destination vs an immediate scroll
+    //TODO ~~~~~~SEE IMAGE FOR CLARITY IN THESE NOTES~~~~~~
+    //TODO  (./notesImg/"notes for smooth scrolling".png)
+    //TODO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   });
 });
 
@@ -158,4 +161,20 @@ document.querySelector('.btn--close-cookie').addEventListener('click', () => {
 // logo.classList.remove('c', 'k');
 // logo.classList.toggle('c');
 // logo.classList.contains('c'); //not includes
+
+//! ~~~~~~~~~~~ Types of Events and Event Handlers ~~~~~~~
+
+const h1 = document.querySelector('h1');
+
+const alerth1 = (e) => {
+  alert('addEventListener: Great! You are reading the heading 😁')
+};
+
+
+h1.addEventListener('mouseenter', alerth1); //more modern method (allows us to add multiple listeners with multiple functions and can remove handler)
+
+setTimeout(() => {
+  h1.removeEventListener('mouseenter', alerth1)
+}, 3000);
+
 
