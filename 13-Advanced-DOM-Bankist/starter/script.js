@@ -74,43 +74,43 @@ btnScrollTo.addEventListener('click', (e) => {
 //! ~~~~~~~~ Selecting, Creating, and Deleting Elements ~~~~~~~
 
 
-//* Selecting Elements
-console.log(document.documentElement);
-console.log(document.head);
-console.log(document.body);
+// //* Selecting Elements
+// console.log(document.documentElement);
+// console.log(document.head);
+// console.log(document.body);
 
-const header = document.querySelector('.header'); //grabs first element that matches
-const allSections = document.querySelectorAll('.section') // grabs all matching elements
-console.log(allSections);
+// const header = document.querySelector('.header'); //grabs first element that matches
+// const allSections = document.querySelectorAll('.section') // grabs all matching elements
+// console.log(allSections);
 
-document.getElementById('section--1') // pretty self-explainatory
-const allButtons = document.getElementsByTagName('button') //will grab all button elements
-console.log(allButtons);
+// document.getElementById('section--1') // pretty self-explainatory
+// const allButtons = document.getElementsByTagName('button') //will grab all button elements
+// console.log(allButtons);
 
-console.log(document.getElementsByClassName('btn'));
+// console.log(document.getElementsByClassName('btn'));
 
-//* Creating and inserting elements
-// .insertAdjacentHTML
+// //* Creating and inserting elements
+// // .insertAdjacentHTML
 
-const message = document.createElement('div');
+// const message = document.createElement('div');
 
-message.classList.add('cookie-message'); //creates a class
-// message.textContent = 'We use cookies for improved functionality and analytics.';
-message.innerHTML = 'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>'
+// message.classList.add('cookie-message'); //creates a class
+// // message.textContent = 'We use cookies for improved functionality and analytics.';
+// message.innerHTML = 'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>'
 
-header.append(message);
-// header.prepend(message);
-// header.append(message.cloneNode(true)) //will create two messages vs simply moving the prended message to an appended child element
+// header.append(message);
+// // header.prepend(message);
+// // header.append(message.cloneNode(true)) //will create two messages vs simply moving the prended message to an appended child element
 
-// header.before(message); //insert before as sibling
-// header.after(message); //insert after as sibling
+// // header.before(message); //insert before as sibling
+// // header.after(message); //insert after as sibling
 
-//* Deleting elements
+// //* Deleting elements
 
-document.querySelector('.btn--close-cookie').addEventListener('click', () => {
-  message.remove(); //NOTEmodern way
-  // message.parentElement.removeChild(message) //NOTEolder method
-});
+// document.querySelector('.btn--close-cookie').addEventListener('click', () => {
+//   message.remove(); //NOTEmodern way
+//   // message.parentElement.removeChild(message) //NOTEolder method
+// });
 
 //! ~~~~~~~~~~ Styles Attributes & Classes ~~~~~~~~~~~~~~
 
@@ -164,17 +164,45 @@ document.querySelector('.btn--close-cookie').addEventListener('click', () => {
 
 //! ~~~~~~~~~~~ Types of Events and Event Handlers ~~~~~~~
 
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 
-const alerth1 = (e) => {
-  alert('addEventListener: Great! You are reading the heading 😁')
-};
+// const alerth1 = (e) => {
+//   alert('addEventListener: Great! You are reading the heading 😁')
+// };
 
 
-h1.addEventListener('mouseenter', alerth1); //more modern method (allows us to add multiple listeners with multiple functions and can remove handler)
+// h1.addEventListener('mouseenter', alerth1); //more modern method (allows us to add multiple listeners with multiple functions and can remove handler)
 
-setTimeout(() => {
-  h1.removeEventListener('mouseenter', alerth1)
-}, 3000);
+// setTimeout(() => {
+//   h1.removeEventListener('mouseenter', alerth1)
+// }, 3000);
 
-//! ~~~~~~~~ Event Propogation: Bubbling & Capturing ~~~~~~~~
+//! ~~~~~~~~ Event Propogation in Practice ~~~~~~~~
+
+// //* rgb(255,255,255)
+// const randomInt = (min, max) => Math.floor(Math.random() * (max-min+1) + min);
+
+// const randomColor = () => 
+//   `rgb(${randomInt(0,255)},${randomInt(0,255)},${randomInt(0,255)})`
+
+// // console.log(randomColor())
+
+// document.querySelector('.nav__link').addEventListener('click', function(e) {
+//   this.style.backgroundColor = randomColor()
+//   console.log('LINK', e.target, e.currentTarget);
+//   console.log(e.currentTarget === this);
+
+//   //*Stop propagation
+//   // e.stopPropagation();
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', function(e) {
+//   this.style.backgroundColor = randomColor()
+//   console.log('CONTAINER', e.target, e.currentTarget);
+// });
+
+// document.querySelector('.nav').addEventListener('click', function(e) {
+//   this.style.backgroundColor = randomColor()
+//   console.log('NAV', e.target, e.currentTarget);
+// });
+
