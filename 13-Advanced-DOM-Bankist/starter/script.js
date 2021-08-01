@@ -233,5 +233,40 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
 //   console.log('NAV', e.target, e.currentTarget);
 // });
 
-//! ~~~~~~~~~~~~~~~ Event Delegation: Implementing Page Navigation ~~~~~~~~~~
+//! ~~~~~~~~~~~~~~~~~~~~~~~~~~ DOM Traversing ~~~~~~~~~~~~~~~~~~~~~~~~~
 
+const h1 = document.querySelector('h1');
+
+//* Going Downwards: Child Elements
+// console.log(h1.querySelectorAll('.highlight'));
+// console.log(h1.childNodes);
+// console.log(h1.children);
+// h1.firstElementChild.style.color = "white"
+// h1.lastElementChild.style.color = "orangered"
+
+//* Going Upwards: Parent Elements
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
+
+// h1.closest('.header').style.background = 'var(--gradient-secondary)' //recieves a query string like querySelector
+// //?NOTE grabs the closest element with the specified query string (if there were multiple 'header' classes it would grab only the closest one)
+// h1.closest('h1').style.background = 'var(--gradient-primary)'
+
+// //?NOTE closest is almost like the opposite of querySelector:
+// //? querySelector() grabs children no matter how deep in the DOM tree
+// //? closest() grabs parents no matter how far up the DOM tree
+
+//* Going Sideways: Sibling Elements
+// console.log(h1.previousElementSibling); //grabs previous HTML element sibling
+// console.log(h1.nextElementSibling);
+
+// console.log(h1.previousSibling); //grabs previous Node element sibling
+// console.log(h1.nextSibling);
+
+// console.log(h1.parentElement.children);
+// console.log(h1.parentNode.childNodes);
+// [...h1.parentElement.children].forEach(function(el) {
+//   if(el !== h1){
+//     el.style.transform = "scale(0.5)"
+//   };
+// });
