@@ -7,6 +7,8 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -34,9 +36,6 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
-
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click', (e) => {
   e.preventDefault();
@@ -70,6 +69,34 @@ btnScrollTo.addEventListener('click', (e) => {
     //TODO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   });
 });
+
+//?NOTE the below method would get out of hand and reduce performance as it gets bigger so we instead use 'Event Delegation' where we delegate the event to a common parent and handle the event there
+// document.querySelectorAll('.nav__link').forEach(function(el) {
+//   el.addEventListener('click', function(e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href'); // will grab whatever "href"=
+//     // console.log(id);
+//     document.querySelector(id).scrollIntoView({behavior: 'smooth'});
+//   });
+// });
+
+//* Using Event Delegation Method
+//* 1) Add event listener to common parent element
+//* 2) Determine what element originate the event
+//* 3) Target only the children elements we are trying to add event listeners to
+
+document.querySelector('.nav__links').addEventListener('click', function(e) {
+  console.log(e.target); // remember event.target tells us where the event originated 
+  // we need to make sure we only select the elements we are actually interested in (IE if we click the nav bar iteself instead of one of the links, we don't want it to do anything)
+  //* Matching Strategy
+  if (e.target.classList.contains('nav__link')) {
+    //?NOTE we see if the event target's class contains the class name we are looking for for our events
+    e.preventDefault(); // prevent the default event behavior of the HTML anchor instant-scrolling to the selected DOM element
+    const id = e.target.getAttribute('href'); //will grab the attribute that href=
+    console.log(id);
+    document.querySelector(id).scrollIntoView({behavior: 'smooth'});
+  }
+})
 
 //! ~~~~~~~~ Selecting, Creating, and Deleting Elements ~~~~~~~
 
@@ -205,4 +232,6 @@ btnScrollTo.addEventListener('click', (e) => {
 //   this.style.backgroundColor = randomColor()
 //   console.log('NAV', e.target, e.currentTarget);
 // });
+
+//! ~~~~~~~~~~~~~~~ Event Delegation: Implementing Page Navigation ~~~~~~~~~~
 
