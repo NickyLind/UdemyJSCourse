@@ -96,7 +96,29 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
     console.log(id);
     document.querySelector(id).scrollIntoView({behavior: 'smooth'});
   }
-})
+});
+
+// Tabbed Component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', (e) => {
+  const clicked = e.target.closest('.operations__tab'); //will grab the closest PARENT element equal to '.operations__tab'. (THis allows us to click the span containing the tab number and will grab the button still)
+  // console.log(clicked);
+  if(!clicked) return;
+  //?NOTE GUARD CLAUSE
+  //? If state that will return early if some condition is matched (if there is nothing clicked we want to finish this function(in our case if our clicked variable doesn't exist we want it to simply return))
+  tabsContent.forEach(content => content.classList.remove('operations__content--active')); //This will remove the 'operations__content--active' class form all the tabsCOntent variable so we can only display the one that is clicked
+
+  // Active Tab
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active')); //this removes the 'operations__tab--active' class from each of our tabs so only the one we click will animate upwards.
+  clicked.classList.add('operations__tab--active'); //only the variable we targetted with our eventListener will animate
+
+  // Activate Content Area
+  console.log(clicked.dataset.tab); //remember we can create data properties in our HTML elements and have to access them with 'dataset' and then the value ('tab)
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active'); // this wil display the content of the active clicked tab using the data-tab property in each of the button elements
+});
 
 //! ~~~~~~~~ Selecting, Creating, and Deleting Elements ~~~~~~~
 
@@ -235,7 +257,7 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
 
 //! ~~~~~~~~~~~~~~~~~~~~~~~~~~ DOM Traversing ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 
 //* Going Downwards: Child Elements
 // console.log(h1.querySelectorAll('.highlight'));
@@ -270,3 +292,5 @@ const h1 = document.querySelector('h1');
 //     el.style.transform = "scale(0.5)"
 //   };
 // });
+
+//! ~~~~~~~~~~~~~ Building a Tabbed Component ~~~~~~~~~~~~~~
