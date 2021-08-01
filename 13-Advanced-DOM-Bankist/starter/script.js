@@ -177,4 +177,4 @@ setTimeout(() => {
   h1.removeEventListener('mouseenter', alerth1)
 }, 3000);
 
-
+//! ~~~~~~~~ Event Propogation: Bubbling & Capturing ~~~~~~~~
