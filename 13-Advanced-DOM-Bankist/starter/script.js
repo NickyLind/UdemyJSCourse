@@ -164,17 +164,38 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 // Sticky Navigation (worse performance version)
 
-const initialCoords = section1.getBoundingClientRect(); //? dynamically grab where section 1 is located according to the viewport window and window size
-// console.log(initialCoords);
-window.addEventListener('scroll', () => {
-  //?NOTE using a scroll event isn't very good performance because it is constantly logging the event every time a minor scroll happens
-  // console.log(window.scrollY);
-  if(window.scrollY > initialCoords.top) { //? if the top of the viewport in relation to the top of section1 is gearter (if the viewport scrolls past the top of section1)
-    nav.classList.add('sticky') //? we add 'sticky' to the nav element class
+// const initialCoords = section1.getBoundingClientRect(); //? dynamically grab where section 1 is located according to the viewport window and window size
+// // console.log(initialCoords);
+// window.addEventListener('scroll', () => {
+//   //?NOTE using a scroll event isn't very good performance because it is constantly logging the event every time a minor scroll happens
+//   // console.log(window.scrollY);
+//   if(window.scrollY > initialCoords.top) { //? if the top of the viewport in relation to the top of section1 is gearter (if the viewport scrolls past the top of section1)
+//     nav.classList.add('sticky') //? we add 'sticky' to the nav element class
+//   } else {
+//     nav.classList.remove('sticky') //? if we scroll back up the other direction past the top of section 1 we remove the sticky class and the nav bar disappears
+//   }
+// });
+
+// Sticky Navigation (Intersection Observer API)
+
+const header = document.querySelector('.header');
+
+const stickyNav = function(entries) {
+  const [entry] = entries;
+  console.log(entry.intersectionRatio, entry.isIntersecting);
+  if(entry.isIntersecting === false) {
+    nav.classList.add('sticky');
   } else {
-    nav.classList.remove('sticky') //? if we scroll back up the other direction past the top of section 1 we remove the sticky class and the nav bar disappears
+    nav.classList.remove('sticky');
   }
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null, //?NOTE this allows us to use the document's viewport as our observe container
+  threshold: 0, //? the threshold will be zero percent (when 0 percent of the header we are observing is visible something will happen)
+  rootMargin: '-90px' //?NOTE allows us to set a margin to the threshold (we set it to the size of our nav bar so when the amount of space below the header(90px) is available it will appear)
 });
+headerObserver.observe(header);
 
 //! ~~~~~~~~ Selecting, Creating, and Deleting Elements ~~~~~~~
 
@@ -349,4 +370,19 @@ window.addEventListener('scroll', () => {
 //   };
 // });
 
-//! ~~~~~~~~~~~~~ Building a Tabbed Component ~~~~~~~~~~~~~~
+//! ~~~~~~~~~~~~~ Intersection Observer API ~~~~~~~~~~~~~~
+
+// const observerCallback = (entries, observer) => {
+//   entries.forEach(entry => {
+//     console.log(entry.intersectionRatio, entry.isIntersecting);
+//   });
+// };
+
+// const observerOptions = {
+//   root: null,
+//   threshold: [0, 0.2]
+// };
+
+// const observer = new IntersectionObserver(observerCallback, observerOptions);
+// observer.observe(section1);
+
