@@ -179,6 +179,7 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 // Sticky Navigation (Intersection Observer API)
 
 const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
 
 const stickyNav = function(entries) {
   const [entry] = entries;
@@ -193,7 +194,7 @@ const stickyNav = function(entries) {
 const headerObserver = new IntersectionObserver(stickyNav, {
   root: null, //?NOTE this allows us to use the document's viewport as our observe container
   threshold: 0, //? the threshold will be zero percent (when 0 percent of the header we are observing is visible something will happen)
-  rootMargin: '-90px' //?NOTE allows us to set a margin to the threshold (we set it to the size of our nav bar so when the amount of space below the header(90px) is available it will appear)
+  rootMargin: `-${navHeight}px` //?NOTE allows us to set a margin to the threshold (we set it to the size of our nav bar so when the amount of space below the header(90px) is available it will appear)
 });
 headerObserver.observe(header);
 
