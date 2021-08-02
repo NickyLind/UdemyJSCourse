@@ -183,7 +183,7 @@ const navHeight = nav.getBoundingClientRect().height;
 
 const stickyNav = function(entries) {
   const [entry] = entries;
-  console.log(entry.intersectionRatio, entry.isIntersecting);
+  // console.log(entry.intersectionRatio, entry.isIntersecting);
   if(entry.isIntersecting === false) {
     nav.classList.add('sticky');
   } else {
@@ -197,6 +197,27 @@ const headerObserver = new IntersectionObserver(stickyNav, {
   rootMargin: `-${navHeight}px` //?NOTE allows us to set a margin to the threshold (we set it to the size of our nav bar so when the amount of space below the header(90px) is available it will appear)
 });
 headerObserver.observe(header);
+
+// Reveal Sections
+const allSections = document.querySelectorAll('.section') // grab every element with that is a section class
+const revealSection = function(entries, observer) { // function to pass into our Intersection Observer
+  const [entry] = entries; // desctructure the first entry from entries (section)
+  console.log(entry.intersectionRatio, entry.isIntersecting, entry.target);
+  if (!entry.isIntersecting)return //guard clause, if the entry isn't intersecting just return
+  else {
+    entry.target.classList.remove('section--hidden'); //remove hidden class to reveal section
+    observer.unobserve(entry.target); //unobserve entry to help with performance
+  }
+};
+
+const sectionObserver = new IntersectionObserver (revealSection, {
+  root: null,
+  threshold: 0.15, // section is only revealed once 15% of it has passed into the window viewport
+});
+allSections.forEach(function(section) { //for every section in our DOM
+  sectionObserver.observe(section); //observe them
+  section.classList.add('section--hidden'); //hide them (will be unhidden when we scroll to them in viewport)
+});
 
 //! ~~~~~~~~ Selecting, Creating, and Deleting Elements ~~~~~~~
 
