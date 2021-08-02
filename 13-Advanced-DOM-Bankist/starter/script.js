@@ -216,7 +216,7 @@ const sectionObserver = new IntersectionObserver (revealSection, {
 });
 allSections.forEach(function(section) { //for every section in our DOM
   sectionObserver.observe(section); //observe them
-  section.classList.add('section--hidden'); //hide them (will be unhidden when we scroll to them in viewport)
+  // section.classList.add('section--hidden'); //hide them (will be unhidden when we scroll to them in viewport)
 });
 
 // Lazy Loading Images
@@ -225,7 +225,7 @@ const imgTargets = document.querySelectorAll('img[data-src]')
 
 const loadImg = function(entries, observer) {
   const [entry] = entries; //destructure because we only have one threshold so only one entry
-  console.log(entry);
+  // console.log(entry);
 
   if(!entry.isIntersecting) return; //guard clause 
 
@@ -240,12 +240,57 @@ const loadImg = function(entries, observer) {
 
 const imgObserver = new IntersectionObserver(loadImg,{
   root: null, //sets root to entire viewport
-  threshold: 0
+  threshold: 0,
+  // rootMargin: '200px' //? can add this property so the images start lazy-loading 200 =px before the viewport hits them
 });
 
 imgTargets.forEach(img => {
   imgObserver.observe(img); //foreach image in all our images that hold a data-src property we observe those images
 });
+
+// Slider
+const slides = document.querySelectorAll('.slide');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+let currentSlide = 0;
+const maxSlide = slides.length;
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// const slider = document.querySelector('.slider');
+// slider.style.transform = 'scale(0.4) translateX(-1200px)';
+// slider.style.overflow = 'visible'
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+const goToSlide = slide => { // 'slides' is a NodeList that is an array, we call the forEach method on this array and then for each value at that index we translate it's x position by multiplying it's index MINUS the slide being passed in by 100%
+  // index 1 - 0 = 100%, index 2 - 0 = 200% OR index 1 - 1 = 0% (current image displayed), index 2 - 1 = 100% (next img) etc
+  slides.forEach((s, i) => {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`
+  });
+}
+
+goToSlide(0); //we pass in the first slide as the argument so the first image is the default
+
+// Next Slide
+const nextSlide = function() {
+  if (currentSlide === maxSlide - 1) { //if the currentSlide is equal the last index (the last picture)
+    currentSlide = 0; //we reset the current sldie to the original picture
+  } else {
+    currentSlide++; //else we increment the current slide by 1
+  }
+  goToSlide(currentSlide); //call the function to orientate the images using the current slide
+};
+
+const prevSlide = () => {
+  if (currentSlide === 0){ //if the current slide is equal to the first image
+    currentSlide = maxSlide - 1; //set the current slide equal to the last image
+  } else {
+    currentSlide--; // if the current slide is not = to the first image reduce the current slide by 1
+  }
+  goToSlide(currentSlide); // call the function to orientate the images using the current slide
+};
+
+btnRight.addEventListener('click', nextSlide); // add event listeners to the buttons that call the functions that cycle the images 
+btnLeft.addEventListener('click', prevSlide);
 
 //! ~~~~~~~~ Selecting, Creating, and Deleting Elements ~~~~~~~
 
