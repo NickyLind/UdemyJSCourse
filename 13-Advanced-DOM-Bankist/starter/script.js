@@ -206,7 +206,7 @@ const revealSection = function(entries, observer) { // function to pass into our
   if (!entry.isIntersecting)return //guard clause, if the entry isn't intersecting just return
   else {
     entry.target.classList.remove('section--hidden'); //remove hidden class to reveal section
-    observer.unobserve(entry.target); //unobserve entry to help with performance
+    sectionObserver.unobserve(entry.target); //unobserve entry to help with performance
   }
 };
 
@@ -248,27 +248,44 @@ imgTargets.forEach(img => {
   imgObserver.observe(img); //foreach image in all our images that hold a data-src property we observe those images
 });
 
-// Slider
+//~~~~~~~~~~~Slider~~~~~~~~~~~~~~~~
+const slider = () => {
+
 const slides = document.querySelectorAll('.slide');
 const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
+const dotContainer = document.querySelector('.dots');
 let currentSlide = 0;
 const maxSlide = slides.length;
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// const slider = document.querySelector('.slider');
-// slider.style.transform = 'scale(0.4) translateX(-1200px)';
-// slider.style.overflow = 'visible'
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Functions
+
+const createDots = () => {
+  slides.forEach((_, index) => { //this function inserts little dot buttons into the dotContainer for each slide and dynamically adds a data-slide property whose number associate's with the index of the slide
+    dotContainer.insertAdjacentHTML('beforeend', `
+    <button class="dots__dot" data-slide="${index}"></button>
+    `)
+  });
+};
+
+const activateDot = function(slide) { //this function grabs all elements with the dots__dot class and runs a forEach loop on them that removes the active css property from them first. Then the function grabs the data-slide property that is equal to the currentslide passed into the function and adds the active css property to that slide
+  document
+    .querySelectorAll('.dots__dot')
+    .forEach(dot => {
+    dot.classList.remove('dots__dot--active');
+  });
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add('dots__dot--active');
+};
 
 const goToSlide = slide => { // 'slides' is a NodeList that is an array, we call the forEach method on this array and then for each value at that index we translate it's x position by multiplying it's index MINUS the slide being passed in by 100%
   // index 1 - 0 = 100%, index 2 - 0 = 200% OR index 1 - 1 = 0% (current image displayed), index 2 - 1 = 100% (next img) etc
   slides.forEach((s, i) => {
     s.style.transform = `translateX(${100 * (i - slide)}%)`
   });
-}
-
-goToSlide(0); //we pass in the first slide as the argument so the first image is the default
+  currentSlide = +slide;
+};
 
 // Next Slide
 const nextSlide = function() {
@@ -278,8 +295,8 @@ const nextSlide = function() {
     currentSlide++; //else we increment the current slide by 1
   }
   goToSlide(currentSlide); //call the function to orientate the images using the current slide
-};
-
+  activateDot(currentSlide); // call the function to light up the dot associated with the current slide
+}
 const prevSlide = () => {
   if (currentSlide === 0){ //if the current slide is equal to the first image
     currentSlide = maxSlide - 1; //set the current slide equal to the last image
@@ -287,11 +304,41 @@ const prevSlide = () => {
     currentSlide--; // if the current slide is not = to the first image reduce the current slide by 1
   }
   goToSlide(currentSlide); // call the function to orientate the images using the current slide
+  activateDot(currentSlide); // call the function to light up the dot associated with the current slide
+
 };
+
+const init = () => {
+  goToSlide(0); //we pass in the first slide as the argument initially here so the first image as well as the dots associated with it are created.
+  createDots(0);
+  activateDot(0);
+}
+init();
+
+// Event Handlers
 
 btnRight.addEventListener('click', nextSlide); // add event listeners to the buttons that call the functions that cycle the images 
 btnLeft.addEventListener('click', prevSlide);
 
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'ArrowLeft') prevSlide();
+  e.key === 'ArrowRight' && nextSlide(); //using overloading here 
+});
+
+dotContainer.addEventListener('click', (e) => {
+  // this event handler calls a function that sets the current slide according to the dot that is clicked
+  if(e.target.classList.contains('dots__dot')) {
+    //using event delegation to grab the parent element of all common elements
+    const {slide} = e.target.dataset;
+    //using destructuring to grab slide from e.target.dataset.slide
+    // the data-slide property is set to the index of the slide in it's nodearray so if we click on that, it should bring us to the slide associated with the dot
+    goToSlide(slide);
+    activateDot(slide);
+  }
+});
+}
+
+slider(); // put all slider related code in a function to help with cluttering global variables, then call it here
 //! ~~~~~~~~ Selecting, Creating, and Deleting Elements ~~~~~~~
 
 
