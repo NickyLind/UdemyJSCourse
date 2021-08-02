@@ -202,7 +202,7 @@ headerObserver.observe(header);
 const allSections = document.querySelectorAll('.section') // grab every element with that is a section class
 const revealSection = function(entries, observer) { // function to pass into our Intersection Observer
   const [entry] = entries; // desctructure the first entry from entries (section)
-  console.log(entry.intersectionRatio, entry.isIntersecting, entry.target);
+  // console.log(entry.intersectionRatio, entry.isIntersecting, entry.target);
   if (!entry.isIntersecting)return //guard clause, if the entry isn't intersecting just return
   else {
     entry.target.classList.remove('section--hidden'); //remove hidden class to reveal section
@@ -217,6 +217,34 @@ const sectionObserver = new IntersectionObserver (revealSection, {
 allSections.forEach(function(section) { //for every section in our DOM
   sectionObserver.observe(section); //observe them
   section.classList.add('section--hidden'); //hide them (will be unhidden when we scroll to them in viewport)
+});
+
+// Lazy Loading Images
+const imgTargets = document.querySelectorAll('img[data-src]')
+// console.log(imgTargets);
+
+const loadImg = function(entries, observer) {
+  const [entry] = entries; //destructure because we only have one threshold so only one entry
+  console.log(entry);
+
+  if(!entry.isIntersecting) return; //guard clause 
+
+  // Replace src with data-src
+  entry.target.src = entry.target.dataset.src // if the entry IS intersecting we change the source of the target to the dataset source which is the high res image 
+  
+  entry.target.addEventListener('load', function() { // we add a 'load' event listener so that we only remove the lazy-image css class from the entry target once the image has loaded so we don't see the shitty grainy original image
+    entry.target.classList.remove('lazy-img');
+  });
+  observer.unobserve(entry.target); // stop observing images we've already loaded for better performance
+};
+
+const imgObserver = new IntersectionObserver(loadImg,{
+  root: null, //sets root to entire viewport
+  threshold: 0
+});
+
+imgTargets.forEach(img => {
+  imgObserver.observe(img); //foreach image in all our images that hold a data-src property we observe those images
 });
 
 //! ~~~~~~~~ Selecting, Creating, and Deleting Elements ~~~~~~~
@@ -408,3 +436,4 @@ allSections.forEach(function(section) { //for every section in our DOM
 // const observer = new IntersectionObserver(observerCallback, observerOptions);
 // observer.observe(section1);
 
+//! ~~~~~~~~~~~~~~~~~~~~~~~~ Lazy Loading Images ~~~~~~~~~~~~~~~~~~~~~~
