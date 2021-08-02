@@ -162,6 +162,20 @@ nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
 
 
+// Sticky Navigation (worse performance version)
+
+const initialCoords = section1.getBoundingClientRect(); //? dynamically grab where section 1 is located according to the viewport window and window size
+// console.log(initialCoords);
+window.addEventListener('scroll', () => {
+  //?NOTE using a scroll event isn't very good performance because it is constantly logging the event every time a minor scroll happens
+  // console.log(window.scrollY);
+  if(window.scrollY > initialCoords.top) { //? if the top of the viewport in relation to the top of section1 is gearter (if the viewport scrolls past the top of section1)
+    nav.classList.add('sticky') //? we add 'sticky' to the nav element class
+  } else {
+    nav.classList.remove('sticky') //? if we scroll back up the other direction past the top of section 1 we remove the sticky class and the nav bar disappears
+  }
+});
+
 //! ~~~~~~~~ Selecting, Creating, and Deleting Elements ~~~~~~~
 
 
