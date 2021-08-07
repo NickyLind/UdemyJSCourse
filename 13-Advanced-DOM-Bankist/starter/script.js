@@ -528,4 +528,22 @@ slider(); // put all slider related code in a function to help with cluttering g
 // const observer = new IntersectionObserver(observerCallback, observerOptions);
 // observer.observe(section1);
 
-//! ~~~~~~~~~~~~~~~~~~~~~~~~ Lazy Loading Images ~~~~~~~~~~~~~~~~~~~~~~
+//! ~~~~~~~~~~~~~~ LifeCycle DOM Events ~~~~~~~~~~~~~~~~~
+
+document.addEventListener('DOMContentLoaded', function(e) {
+  console.log('HTML Parsed and DOM tree built!', e);
+});
+//?NOTE this event happens when HTML finishes loading (see Script tag in html)
+
+window.addEventListener('load', function(e){
+  console.log('Page fully loaded', e);
+});
+//?NOTE This even happens when the html and all other external files (images, css) are finished loading
+
+window.addEventListener('beforeunload', function(e){
+  e.preventDefault();
+  console.log(e);
+  e.returnValue = '';
+});
+//?NOTE event happens immediately before a user is about to leave the page (ex: closing the window)
+//?NOTE no matter what you enter for the string it will always return a generic message
