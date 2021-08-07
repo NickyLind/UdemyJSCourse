@@ -62,30 +62,52 @@
 
 //! ~~~~~~~~~~~~~~~~~~~~ Prototypes ~~~~~~~~~~~~~~~~~~~
 
-//?NOTE every function in JS has a property called 'Prototype'
+// //?NOTE every function in JS has a property called 'Prototype'
 
-const Person  = function(firstName, birthYear) {
-  this.firstName = firstName,
-  this.birthYear = birthYear
-};
+// const Person  = function(firstName, birthYear) {
+//   this.firstName = firstName,
+//   this.birthYear = birthYear
+// };
 
-const jonas = new Person('Jonas', 1991);
-console.log(Person.prototype);
+// const jonas = new Person('Jonas', 1991);
+// console.log(Person.prototype);
 
-Person.prototype.calcAge = function() {
-  console.log(2021 - this.birthYear);
-  //? 'this' is set to the object calling the method
-};
+// Person.prototype.calcAge = function() {
+//   console.log(2021 - this.birthYear);
+//   //? 'this' is set to the object calling the method
+// };
 
-jonas.calcAge()
-//? every object has acceess to the methods and properties of its prototype
+// jonas.calcAge()
+// //? every object has acceess to the methods and properties of its prototype
 
-console.log(jonas.__proto__);
-console.log(jonas.__proto__ === Person.prototype); //true
-console.log(Person.prototype.isPrototypeOf(jonas)); //true
+// console.log(jonas.__proto__);
+// console.log(jonas.__proto__ === Person.prototype); //true
+// console.log(Person.prototype.isPrototypeOf(jonas)); //true
 
-Person.prototype.species = 'Homo Sapiens';
-console.log(jonas.species);
-console.log(jonas.hasOwnProperty('firstName')); //true
-console.log(jonas.hasOwnProperty('species')); //false
-//?NOTE species is not actually inside the jonas object, it simply has access to it because of it's a prototype property of Person
+// Person.prototype.species = 'Homo Sapiens';
+// console.log(jonas.species);
+// console.log(jonas.hasOwnProperty('firstName')); //true
+// console.log(jonas.hasOwnProperty('species')); //false
+// //?NOTE species is not actually inside the jonas object, it simply has access to it because of it's a prototype property of Person
+
+// //! ~~~~~~ Prototypal Inheritance on built in objects  ~~~~~~~
+
+// console.log(jonas.__proto__); 
+// console.log(jonas.__proto__.__proto__); 
+// console.log(jonas.__proto__.__proto__.__proto__); 
+
+// console.dir(Person.prototype.constructor);
+
+// const arr = [3, 6, 4, 5, 6, 9, 3, 9]; // new Array === []
+// console.log(arr.__proto__ === Array.prototype);
+// console.log(arr.__proto__.__proto__);
+
+// Array.prototype.unique = function() {
+//   return [...new Set(this)]
+// };
+
+// console.log(arr.unique());
+
+// const h1 = document.querySelector('h1');
+// // console.dir(h1);
+// console.dir(x => x + 1);
