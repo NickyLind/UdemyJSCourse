@@ -60,3 +60,32 @@
 // console.log(jonas instanceof Person);
 // console.log(jay instanceof Person);
 
+//! ~~~~~~~~~~~~~~~~~~~~ Prototypes ~~~~~~~~~~~~~~~~~~~
+
+//?NOTE every function in JS has a property called 'Prototype'
+
+const Person  = function(firstName, birthYear) {
+  this.firstName = firstName,
+  this.birthYear = birthYear
+};
+
+const jonas = new Person('Jonas', 1991);
+console.log(Person.prototype);
+
+Person.prototype.calcAge = function() {
+  console.log(2021 - this.birthYear);
+  //? 'this' is set to the object calling the method
+};
+
+jonas.calcAge()
+//? every object has acceess to the methods and properties of its prototype
+
+console.log(jonas.__proto__);
+console.log(jonas.__proto__ === Person.prototype); //true
+console.log(Person.prototype.isPrototypeOf(jonas)); //true
+
+Person.prototype.species = 'Homo Sapiens';
+console.log(jonas.species);
+console.log(jonas.hasOwnProperty('firstName')); //true
+console.log(jonas.hasOwnProperty('species')); //false
+//?NOTE species is not actually inside the jonas object, it simply has access to it because of it's a prototype property of Person
