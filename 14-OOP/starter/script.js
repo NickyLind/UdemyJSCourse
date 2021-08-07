@@ -25,3 +25,38 @@
 
 //Object.create()
 //? The easiest and most straightforward way of linking an object to a prototype object
+
+//! ~~~~~~ Constructor Functions and the new Operator ~~~~~
+
+// //?NOTE arrow functions do not work as function declarations because it has no this keyword
+// const Person  = function(firstName, birthYear) {
+//   //* Instance Properties
+//   this.firstName = firstName,
+//   this.birthYear = birthYear,
+
+//   //! never create methods in constructor functions (below)
+//   this.calcAge = function() {
+//     console.log(2021- this.birthYear);
+//   }
+// };
+
+// const jonas = new Person('Jonas', 1991);
+
+// //* 1. New {} is created
+// //* 2. function is called. 'this' = {}
+// //* 3. {} linked to prototype
+// //* 4. function automatically return {} 
+// //? 1. a New empty object is created 
+// //? 2. the function is called, and the 'this' keyword is assigned to the empty object ({})
+// //? 3. the parameters passed into the function are set to properties inside the empty object  using 'this'
+// //? 4. the function will then, automatically return the object
+
+// const matilda = new Person('Matilda', 2017);
+// const jack = new Person('Jack', 1975);
+// console.log(jonas, matilda, jack);
+
+// const jay = 'Jay';
+
+// console.log(jonas instanceof Person);
+// console.log(jay instanceof Person);
+
