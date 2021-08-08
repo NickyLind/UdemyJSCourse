@@ -457,54 +457,111 @@
 
 //! ~~~~~~~~~~~~~~~~ CODING CHALLENGE #3 ~~~~~~~~~~~~~~~~~~~
 
-/* 
-1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property);
-2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo';
-3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140 km/h, with a charge of 22%';
-4. Create an electric car object and experiment with calling 'accelerate', 'brake' and 'chargeBattery' (charge to 90%). Notice what happens when you 'accelerate'! HINT: Review the definiton of polymorphism 😉
+// /* 
+// 1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property);
+// 2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo';
+// 3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140 km/h, with a charge of 22%';
+// 4. Create an electric car object and experiment with calling 'accelerate', 'brake' and 'chargeBattery' (charge to 90%). Notice what happens when you 'accelerate'! HINT: Review the definiton of polymorphism 😉
 
-DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
+// DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
 
-GOOD LUCK 😀
-*/
+// GOOD LUCK 😀
+// */
 
-const Car = function(make, speed) {
-  this.make = make;
-  this.speed = speed;
-};
+// const Car = function(make, speed) {
+//   this.make = make;
+//   this.speed = speed;
+// };
 
-Car.prototype.accelerate = function() {
-  this.speed += 10;
-  console.log(`The ${this.make} is going ${this.speed} km/h`)
-};
+// Car.prototype.accelerate = function() {
+//   this.speed += 10;
+//   console.log(`The ${this.make} is going ${this.speed} km/h`)
+// };
 
-Car.prototype.brake = function () {
-  this.speed -= 5;
-  console.log(`The ${this.make} is going ${this.speed} km/h`)
-};
+// Car.prototype.brake = function () {
+//   this.speed -= 5;
+//   console.log(`The ${this.make} is going ${this.speed} km/h`)
+// };
 
-const EV = function(make, speed, charge) {
-  Car.call(this, make, speed) 
-  this.charge = charge
-}; 
+// const EV = function(make, speed, charge) {
+//   Car.call(this, make, speed) 
+//   this.charge = charge
+// }; 
 
-EV.prototype = Object.create(Car.prototype);
+// EV.prototype = Object.create(Car.prototype);
 
-EV.prototype.chargeBattery = function(chargeTo) {
-  this.charge = chargeTo;
-  console.log(`${this.charge}% battery`);
-};
+// EV.prototype.chargeBattery = function(chargeTo) {
+//   this.charge = chargeTo;
+//   console.log(`${this.charge}% battery`);
+// };
 
-EV.prototype.accelerate = function() {
-  this.speed += 20;
-  this.charge -= 1;
-  console.log(`${this.make} is going ${this.speed} km/h, with ${this.charge}% battery`);
-};
+// EV.prototype.accelerate = function() {
+//   this.speed += 20;
+//   this.charge -= 1;
+//   console.log(`${this.make} is going ${this.speed} km/h, with ${this.charge}% battery`);
+// };
 
-const tesla = new EV ('Tesla', 120, 23);
+// const tesla = new EV ('Tesla', 120, 23);
 
-console.log(tesla);
-tesla.chargeBattery(50);
-tesla.accelerate();
-tesla.accelerate();
-tesla.brake();
+// console.log(tesla);
+// tesla.chargeBattery(50);
+// tesla.accelerate();
+// tesla.accelerate();
+// tesla.brake();
+
+
+//! ~~~~~~ Inheritance Between 'Classes': ES6 Classes ~~~~~~~~
+
+// class PersonCl {
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   };
+
+//   calcAge() {
+//     console.log(2021 - this.birthYear);
+//   };
+
+//   greet() {
+//     console.log(`Hey ${this.fullName}`);
+//   };
+
+//   get age() {
+//     return 2021 - this.birthYear
+//   };
+
+//   set fullName(name) {
+//     if(name.includes(' ')) this._fullname = name;
+//     else alert(`${name} is not a full name`)
+//   };
+
+//   get fullName() {
+//     return this._fullname;
+//   };
+
+//   //* static method (on the PersonCl object itself not instances it creates)
+//   static hey() {
+//     console.log('Hey there 🤘');
+//   };
+// };
+
+// class StudentCl extends PersonCl {
+//   constructor(fullName, birthYear, course) {
+//     super(fullName, birthYear);
+//     //?NOTE the 'super' function along with the extends keyword abstract away a lot of the code even though the same thing is still hapenning behind the scenes as using constructor functions
+//     //?NOTE the 'super' function takes in the parameters that belong to the parent class and always needs to happen before anything else so it can connect the 'this' keyword in the child class
+//     this.course = course;
+//   }
+
+//   introduce() {
+//     console.log(`My name is ${this.fullName} and I study ${this.course}`);
+//   }
+
+//   calcAge() {
+//     console.log(`I'm ${2021 - this.birthYear} years old, but as a student I feel more like ${2021 - this.birthYear + 10}`);
+//   }
+// };
+
+// const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
+// martha.introduce();
+// martha.calcAge();
