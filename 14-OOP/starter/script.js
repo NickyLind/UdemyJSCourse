@@ -568,30 +568,71 @@
 
 //! ~~~~~~ Inheritance Between 'Classes': Object.create ~~~~~~~
 
-const PersonProto = {
-  calcAge() {
-    console.log(2021 - this.birthYear);
-  },
+// const PersonProto = {
+//   calcAge() {
+//     console.log(2021 - this.birthYear);
+//   },
 
-  init(firstName, birthYear) {
-    this.firstName = firstName;
-    this.birthYear = birthYear;
-  },
-};
+//   init(firstName, birthYear) {
+//     this.firstName = firstName;
+//     this.birthYear = birthYear;
+//   },
+// };
 
-const steven = Object.create(PersonProto);
+// const steven = Object.create(PersonProto);
 
-const StudentProto = Object.create(PersonProto);
-StudentProto.init = function(firstName, birthYear, course) {
-  PersonProto.init.call(this, firstName, birthYear)
-  this.course = course;
-};
+// const StudentProto = Object.create(PersonProto);
+// StudentProto.init = function(firstName, birthYear, course) {
+//   PersonProto.init.call(this, firstName, birthYear)
+//   this.course = course;
+// };
 
-StudentProto.introduce = function() {
-  console.log(`My name is ${this.firstName} and I study ${this.course}`);
-};
+// StudentProto.introduce = function() {
+//   console.log(`My name is ${this.firstName} and I study ${this.course}`);
+// };
 
-const jay = Object.create(StudentProto)
-jay.init('Jay', 2010, 'Computer Science');
-jay.introduce();
-jay.calcAge();
+// const jay = Object.create(StudentProto)
+// jay.init('Jay', 2010, 'Computer Science');
+// jay.introduce();
+// jay.calcAge();
+
+//! ~~~~~~~~~~~~~~~~~~~ Another Class Example ~~~~~~~~~~~~~~~~~~~~~
+
+// class Account {
+//   constructor(owner, currency, pin, ) {
+//     this.owner = owner;
+//     this.currency = currency;
+//     this.pin = pin
+//     this.movements = [];
+//     this.locale = navigator.language;
+
+//     console.log(`Thanks for opening an account, ${owner}`);
+//   };
+
+//   //* Public Interface
+//   desposit(val) {
+//     this.movements.push(val);
+//   };
+//   withdrawal(val) {
+//     this.desposit(-val);
+//   };
+//   approvedLoan(val) {
+//     return true
+//   }
+//   requestLoan(val) {
+//     if(this.approvedLoan(val)) {
+//       this.desposit(val);
+//       console.log('Loan Approved');
+//     }
+//   }
+// };
+
+// const acc1 = new Account('Nick', 'USD', 1111);
+// acc1.desposit(250);
+// acc1.withdrawal(140);
+// acc1.requestLoan(1000);
+// acc1.approvedLoan(1000); //being able to directly access these is baaaaaad
+
+// console.log(acc1);
+
+//! ~~~~~~~~~~~~ Encapsulation: Protected Properties and Methods ~~~~~~~~~~~~~~
