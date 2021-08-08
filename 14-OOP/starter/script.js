@@ -636,3 +636,42 @@
 // console.log(acc1);
 
 //! ~~~~~~~~~~~~ Encapsulation: Protected Properties and Methods ~~~~~~~~~~~~~~
+
+class Account {
+  constructor(owner, currency, pin, ) {
+    this.owner = owner;
+    this.currency = currency;
+    this._pin = pin
+    this._movements = [];
+    //?NOTE 'protected' properties begin with underscores 
+    this.locale = navigator.language;
+
+    console.log(`Thanks for opening an account, ${owner}`);
+  };
+
+  //* Public Interface
+  getMovements() {
+    return this._movements
+  };
+  desposit(val) {
+    this._movements.push(val);
+  };
+  withdrawal(val) {
+    this.desposit(-val);
+  };
+  _approvedLoan(val) {
+    return true
+  };
+  requestLoan(val) {
+    if(this.approvedLoan(val)) {
+      this.desposit(val);
+      console.log('Loan Approved');
+    }
+  };
+};
+
+const acc1 = new Account('Nick', 'USD', 1111);
+acc1.desposit(250);
+acc1.withdrawal(140);
+
+console.log(acc1.getMovements());
