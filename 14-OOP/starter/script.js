@@ -114,44 +114,82 @@
 
 //! ~~~~~~~~~~~~~~~~ CODING CHALLENGE #1 ~~~~~~~~~~~~~~~~~~~
 
-/* 
-1. Use a constructor function to implement a Car. A car has a make and a speed property. The speed property is the current speed of the car in km/h;
-2. Implement an 'accelerate' method that will increase the car's speed by 10, and log the new speed to the console;
-3. Implement a 'brake' method that will decrease the car's speed by 5, and log the new speed to the console;
-4. Create 2 car objects and experiment with calling 'accelerate' and 'brake' multiple times on each of them.
+// /* 
+// 1. Use a constructor function to implement a Car. A car has a make and a speed property. The speed property is the current speed of the car in km/h;
+// 2. Implement an 'accelerate' method that will increase the car's speed by 10, and log the new speed to the console;
+// 3. Implement a 'brake' method that will decrease the car's speed by 5, and log the new speed to the console;
+// 4. Create 2 car objects and experiment with calling 'accelerate' and 'brake' multiple times on each of them.
 
-DATA CAR 1: 'BMW' going at 120 km/h
-DATA CAR 2: 'Mercedes' going at 95 km/h
+// DATA CAR 1: 'BMW' going at 120 km/h
+// DATA CAR 2: 'Mercedes' going at 95 km/h
 
-GOOD LUCK 😀
-*/
+// GOOD LUCK 😀
+// */
 
-const Car = function(make, speed) {
-  this.make = make,
-  this.speed = speed
+// const Car = function(make, speed) {
+//   this.make = make,
+//   this.speed = speed
+// };
+
+// Car.prototype.accelerate = function() {
+//   this.speed += 10;
+//   console.log(`The ${this.make} is going ${this.speed} km/h`); 
+// };
+
+// Car.prototype.brake = function() {
+//   this.speed -= 5;
+//   console.log(`The ${this.make} is going ${this.speed} km/h`);
+// };
+
+// const car1 = new Car('BMW', 120);
+// const car2 = new Car('Mercedes', 95);
+// console.log('Car 1 : ', car1);
+// car1.accelerate();
+// car1.accelerate();
+// car1.accelerate();
+// car1.brake();
+// console.log('~~~~~~~~~~~~~~~~~~~~~~~~');
+// console.log('Car 2 : ', car2);
+// car2.accelerate();
+// car2.accelerate();
+// car2.brake();
+// car2.brake();
+// car2.brake();
+
+//! ~~~~~~~~~~~~~~~~~~~~~ ES6 Classes ~~~~~~~~~~~~~~~~~~~~~~
+
+//* class expression
+// const PersonCl = class {
+
+// };
+//?NOTE behind the scenes classes are simply functions
+
+//* class declaration
+class PersonCl {
+  constructor(firstName, birthYear) {
+    //?NOTE must be called 'constructor'
+    this.firstName = firstName,
+    this.birthYear = birthYear
+  };
+  calcAge() {
+    console.log(2021 - this.birthYear);
+  };
+  //?NOTE methods created outside the constructor will be added to the prototype of the object not the instance of the object itself
+  greet() {
+    console.log(` Hey ${this.firstName}`);
+  };
 };
 
-Car.prototype.accelerate = function() {
-  this.speed += 10;
-  console.log(`The ${this.make} is going ${this.speed} km/h`); 
-};
+const jessica = new PersonCl('Jessica', 1996);
+console.log(jessica);
 
-Car.prototype.brake = function() {
-  this.speed -= 5;
-  console.log(`The ${this.make} is going ${this.speed} km/h`);
-};
+console.log(jessica.__proto__ === PersonCl.prototype);
 
-const car1 = new Car('BMW', 120);
-const car2 = new Car('Mercedes', 95);
-console.log('Car 1 : ', car1);
-car1.accelerate();
-car1.accelerate();
-car1.accelerate();
-car1.brake();
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~');
-console.log('Car 2 : ', car2);
-car2.accelerate();
-car2.accelerate();
-car2.brake();
-car2.brake();
-car2.brake();
+// PersonCl.prototype.greet = function() {
+//   console.log(`Hey ${this.firstName}`);
+// };
+jessica.greet();
+
+//* 1. Classes are NOT hoisted (we CANNOT use them before they are decalred in the code)
+//* 2. Classes are first-class citizens (we can pass them into functions and return them from functions)
+//* 3. Classes are executed in strict mode
