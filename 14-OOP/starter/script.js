@@ -158,38 +158,120 @@
 
 //! ~~~~~~~~~~~~~~~~~~~~~ ES6 Classes ~~~~~~~~~~~~~~~~~~~~~~
 
-//* class expression
-// const PersonCl = class {
+// //* class expression
+// // const PersonCl = class {
+
+// // };
+// //?NOTE behind the scenes classes are simply functions
+
+// //* class declaration
+// class PersonCl {
+//   constructor(firstName, birthYear) {
+//     //?NOTE must be called 'constructor'
+//     this.firstName = firstName,
+//     this.birthYear = birthYear
+//   };
+//   calcAge() {
+//     console.log(2021 - this.birthYear);
+//   };
+//   //?NOTE methods created outside the constructor will be added to the prototype of the object not the instance of the object itself
+//   greet() {
+//     console.log(` Hey ${this.firstName}`);
+//   };
+// };
+
+// const jessica = new PersonCl('Jessica', 1996);
+// console.log(jessica);
+
+// console.log(jessica.__proto__ === PersonCl.prototype);
+
+// // PersonCl.prototype.greet = function() {
+// //   console.log(`Hey ${this.firstName}`);
+// // };
+// jessica.greet();
+
+// //* 1. Classes are NOT hoisted (we CANNOT use them before they are decalred in the code)
+// //* 2. Classes are first-class citizens (we can pass them into functions and return them from functions)
+// //* 3. Classes are executed in strict mode
+
+//! ~~~~~~~~~~~~~~~~~ Setters & Getters ~~~~~~~~~~~~~~~~~~~~
+
+// // //* ~~~~~~~~~~~~~~~~ From Mosh Video ~~~~~~~~~~~~~~
+// // //?NOTE getters => access properties of an object
+// // //?NOTE setters => change (mutate) properties of an object
+// // const person = {
+// //   firstName: "Mosh",
+// //   lastName: "Hamedani",
+// //   get fullName() {
+// //     return `${person.firstName} ${person.lastName}`
+// //     //?NOTE now we can access the fullname like a property vs a method (person.fullName VS person.fullName())
+// //   },
+// //   set fullName(value) {
+// //     const parts = value.split(' ');
+// //     this.firstName = parts[0];
+// //     this.lastName = parts[1];
+// //     //?NOTE now we can change this 'property' using the setter
+// //   }
+// // }
+
+// // person.fullName = 'John Smith'
+// // console.log(person);
+// // //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// const account = {
+//   owner: 'nick',
+//   movements: [200, 530, 120, 300] ,
+
+//   get latest() {
+//     return this.movements.slice(-1).pop();
+//   },
+
+//   set latest(mov) {
+//     this.movements.push(mov);
+//   }
 
 // };
-//?NOTE behind the scenes classes are simply functions
 
-//* class declaration
-class PersonCl {
-  constructor(firstName, birthYear) {
-    //?NOTE must be called 'constructor'
-    this.firstName = firstName,
-    this.birthYear = birthYear
-  };
-  calcAge() {
-    console.log(2021 - this.birthYear);
-  };
-  //?NOTE methods created outside the constructor will be added to the prototype of the object not the instance of the object itself
-  greet() {
-    console.log(` Hey ${this.firstName}`);
-  };
-};
+// console.log(account.latest);
 
-const jessica = new PersonCl('Jessica', 1996);
-console.log(jessica);
+// account.latest = 50;
+// console.log(account.movements);
 
-console.log(jessica.__proto__ === PersonCl.prototype);
+// class PersonCl {
+//   constructor(fullName, birthYear) {
+//     //?NOTE must be called 'constructor'
+//     this.fullName = fullName,
+//     this.birthYear = birthYear
+//   };
+//   calcAge() {
+//     console.log(2021 - this.birthYear);
+//   };
 
-// PersonCl.prototype.greet = function() {
-//   console.log(`Hey ${this.firstName}`);
+//   greet() {
+//     console.log(` Hey ${this.firstName}`);
+//   };
+
+//   get age() {
+//     return 2021 - this.birthYear
+//   }
+
+//   set fullName(name) {
+//     console.log(name);
+//     if (name.includes(' ')) {
+//       this._fullName = name
+//     } else {
+//       alert(`${name} is not a full name`)
+//     }
+//   }
+
+//   get fullName() {
+//     return this._fullName;
+//   }
 // };
-jessica.greet();
 
-//* 1. Classes are NOT hoisted (we CANNOT use them before they are decalred in the code)
-//* 2. Classes are first-class citizens (we can pass them into functions and return them from functions)
-//* 3. Classes are executed in strict mode
+// const jessica = new PersonCl('Jessica Davis', 1996);
+// console.log(jessica.age); 
+// console.log(jessica);
+
+// const walter = new PersonCl('Walter White', 1965)
+// console.log(walter);
