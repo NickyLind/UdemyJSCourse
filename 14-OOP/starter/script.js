@@ -414,3 +414,43 @@
 // car.speedUS;
 // car.speedUS = 25;
 // console.log(car);
+
+//! ~~~ Inheritence Between 'Classes': Constructor Functions ~~
+
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+Person.prototype.calcAge = function () {
+  console.log(2021 - this.birthYear);
+};
+
+const Student = function(firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear)
+  this.course = course;
+};
+
+Student.prototype = Object.create(Person.prototype)
+//?NOTE We set the prototype of the Student constructor function to a new object (Object.create) that is equal to the Person constructor function's prototype 
+//?(The constructor is simply the function we declare that will churn out new instances of that object) 
+//?(the prototype property is where all the methods attached to the contructor function object reside)
+// console.log(Person.prototype);
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2002, 'Computer Science');
+console.log(mike);
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+
+console.log(mike instanceof Student);
+console.log(mike instanceof Person);
+console.log(mike instanceof Object);
+
+Student.prototype.constructor = Student;
+console.dir(Student.prototype.constructor);
