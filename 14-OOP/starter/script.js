@@ -275,3 +275,70 @@
 
 // const walter = new PersonCl('Walter White', 1965)
 // console.log(walter);
+
+//! ~~~~~~~~~~~~~~~~~ Static Methods ~~~~~~~~~~~~~~~~~~~~~~
+
+// const Person = function(firstName, birthYear) {
+//   this.firstName = firstName,
+//   this.birthYear = birthYear
+// } 
+
+// const nick = new Person('Nick', 1990);
+// console.log(nick);
+
+// Person.hey = function() {
+//   console.log('Hey There 🖖');
+//   console.log(this);
+// };
+
+// Person.hey();
+// //?NOTE this static method only works on the Person contructor itself just like how Number.parsefloat() works on the number constructor but not an actual number (can't to 14.parsefloat())
+
+// class PersonCl {
+//   constructor(fullName, birthYear) {
+//     //?NOTE must be called 'constructor'
+//     this.fullName = fullName,
+//     this.birthYear = birthYear
+//   };
+
+//   //* Instance method
+//   calcAge() {
+//     console.log(2021 - this.birthYear);
+//   };
+
+//   greet() {
+//     console.log(` Hey ${this.firstName}`);
+//   };
+
+//   get age() {
+//     return 2021 - this.birthYear
+//   }
+
+//   set fullName(name) {
+//     console.log(name);
+//     if (name.includes(' ')) {
+//       this._fullName = name
+//     } else {
+//       alert(`${name} is not a full name`)
+//     }
+//   }
+
+//   get fullName() {
+//     return this._fullName;
+//   }
+
+//   //* static method
+//   static hey() {
+//     console.log('Hey There ✌');
+//     // console.log(this);
+//   }
+// };
+
+// const jessica = new PersonCl('Jessica Davis', 1996);
+// console.log(jessica.age); 
+// console.log(jessica);
+
+// const walter = new PersonCl('Walter White', 1965)
+// console.log(walter);
+
+// PersonCl.hey();
