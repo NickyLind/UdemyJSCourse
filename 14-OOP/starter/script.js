@@ -637,37 +637,99 @@
 
 //! ~~~~~~~~~~~~ Encapsulation: Protected Properties and Methods ~~~~~~~~~~~~~~
 
+// class Account {
+//   constructor(owner, currency, pin, ) {
+//     this.owner = owner;
+//     this.currency = currency;
+//     this._pin = pin
+//     this._movements = [];
+//     //?NOTE 'protected' properties begin with underscores 
+//     this.locale = navigator.language;
+
+//     console.log(`Thanks for opening an account, ${owner}`);
+//   };
+
+//   //* Public Interface
+//   getMovements() {
+//     return this._movements
+//   };
+//   desposit(val) {
+//     this._movements.push(val);
+//   };
+//   withdrawal(val) {
+//     this.desposit(-val);
+//   };
+//   _approvedLoan(val) {
+//     return true
+//   };
+//   requestLoan(val) {
+//     if(this.approvedLoan(val)) {
+//       this.desposit(val);
+//       console.log('Loan Approved');
+//     }
+//   };
+// };
+
+// const acc1 = new Account('Nick', 'USD', 1111);
+// acc1.desposit(250);
+// acc1.withdrawal(140);
+
+// console.log(acc1.getMovements());
+
+//! ~~~~~~~~~~~~~~~ Encapsulation: Private Class Fields and Methods ~~~~~~~~~~~~~~
+
+//* 1) Public Fields
+//* 2) Private Fields
+//* 3) Public Methods
+//* 4) Private Methods
+// (there is also the static version)
+
 class Account {
+  //* 1) Public fields (added on instances)
+  locale = navigator.language;
+  
+  //* 2) Private fields
+  #movements = [];
+  #pin;
+
+
   constructor(owner, currency, pin, ) {
     this.owner = owner;
     this.currency = currency;
-    this._pin = pin
-    this._movements = [];
+    this.#pin = pin
+    // this._movements = [];
     //?NOTE 'protected' properties begin with underscores 
-    this.locale = navigator.language;
+    // this.locale = navigator.language;
 
     console.log(`Thanks for opening an account, ${owner}`);
   };
 
-  //* Public Interface
+  //* Public Interface OR 3) Public methods
   getMovements() {
-    return this._movements
+    return this.#movements
   };
   desposit(val) {
-    this._movements.push(val);
+    this.#movements.push(val);
   };
   withdrawal(val) {
     this.desposit(-val);
   };
-  _approvedLoan(val) {
-    return true
-  };
   requestLoan(val) {
-    if(this.approvedLoan(val)) {
+    if(this.#approvedLoan(val)) {
       this.desposit(val);
       console.log('Loan Approved');
     }
   };
+
+  static helper() {
+    console.log('Helper');
+  }
+  
+  //* 4) Private Methods
+  #approvedLoan(val) {
+    return true
+  };
+  
 };
 
 const acc1 = new Account('Nick', 'USD', 1111);
@@ -675,3 +737,9 @@ acc1.desposit(250);
 acc1.withdrawal(140);
 
 console.log(acc1.getMovements());
+console.log(acc1);
+// console.log(acc1.#movements);
+// console.log(acc1.#pin);
+// console.log(acc1.#approveLoan(100));
+
+Account.helper()
