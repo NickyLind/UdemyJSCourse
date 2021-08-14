@@ -181,6 +181,65 @@ const countriesContainer = document.querySelector('.countries');
 // getCountryData('USA')
 
 //! ~~~~~~~~~~~~~~~~~~~ Handling Rejected Promises ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// const renderCountry = function(data, className) {
+//   const html = `
+//   <article class="country ${className}">
+//   <img class="country__img" src="${data.flag}" />
+//   <div class="country__data">
+//   <h3 class="country__name">${data.name}</h3>
+//   <h4 class="country__region">${data.region}</h4>
+//   <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(1)} people</p>
+//   <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
+//   <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
+//   </div>
+//   </article>
+//   `
+//   countriesContainer.insertAdjacentHTML('beforeend', html);
+//   // countriesContainer.style.opacity = 1;
+// }
+
+// const renderError = function(msg) {
+//   countriesContainer.insertAdjacentText('beforeend', msg);
+//   // countriesContainer.style.opacity = 1;
+// }
+
+// const getCountryData = function(country) {
+//   // Country 1
+//   fetch(`https://restcountries.eu/rest/v2/name/${country}`)
+//     .then((response) => response.json()/*, error => alert(error)*/)
+//     //?NOTE if you pass a second callback function into this method it will display the error
+//     .then((data) => {
+//       renderCountry(data[0]);
+//       const neighbor = data[0].borders[0];
+
+//       if (!neighbor) return
+
+//       // Country 2
+//       return fetch(`https://restcountries.eu/rest/v2/alpha/${neighbor}`);
+//     })
+//     .then(response => response.json())
+//     .then(data => renderCountry(data, 'neighbour'))
+//     .catch(error => {
+//       console.error(`${error} 🙌🙌🙌`)
+//       renderError(`Something went wrong: "${error.message}"`) 
+//       //?NOTE any error created in JS has a message property
+//       //?NOTE this catch block at the end of the chain will catch any errors made in the entire promise chain
+//     })
+//     .finally(() => {
+//       countriesContainer.style.opacity = 1;
+//     })
+// }
+
+// btn.addEventListener('click', function() {
+//   getCountryData('USA')
+// })
+
+//* THEN >>> runs when promise is fulfilled
+//* CATCH >>> runs when promise is rejected
+//* FINALLY >>> runs no matter what
+
+//! ~~~~~~~~~~~~~~~~~~~~~~~~~ Throwing Errors Manually ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 const renderCountry = function(data, className) {
   const html = `
   <article class="country ${className}">
@@ -196,45 +255,85 @@ const renderCountry = function(data, className) {
   `
   countriesContainer.insertAdjacentHTML('beforeend', html);
   // countriesContainer.style.opacity = 1;
-}
+};
 
 const renderError = function(msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
   // countriesContainer.style.opacity = 1;
-}
+};
+
+const getJSON = function(url, errorMsg = 'Something went wrong:') {
+  return fetch(url).then(response => {
+    if(!response.ok) throw new Error(`${errorMsg} (${response.status})`);
+    return response.json();
+  });
+};
+
+//* unDRY version
+// const getCountryData = function(country) {
+//   // Country 1
+//   fetch(`https://restcountries.eu/rest/v2/name/${country}`)
+//     .then((response) => {
+//       console.log(response);
+
+//       if(!response.ok) throw new Error(`Country not found (${response.status})`)
+//       return response.json()/*, error => alert(error)*/
+//     })
+//     //?NOTE if you pass a second callback function into this method it will display the error
+//     .then((data) => {
+//       renderCountry(data[0]);
+//       // const neighbor = data[0].borders[0];
+//       const neighbor = 'asjasd'
+
+//       if (!neighbor) return
+
+//       // Country 2
+//       return fetch(`https://restcountries.eu/rest/v2/alpha/${neighbor}`);
+//     })
+//     .then(response => {
+//       if(!response.ok) throw new Error(`Country not found (${response.status})`)
+//       return response.json()
+//     })
+//     .then(data => renderCountry(data, 'neighbour'))
+//     .catch(error => {
+//       console.error(`${error} 🙌🙌🙌`)
+//       renderError(`Something went wrong: "${error.message}"`) 
+//       //?NOTE any error created in JS has a message property
+//       //?NOTE this catch block at the end of the chain will catch any errors made in the entire promise chain
+//     })
+//     .finally(() => {
+//       countriesContainer.style.opacity = 1;
+//     })
+// }
 
 const getCountryData = function(country) {
   // Country 1
-  fetch(`https://restcountries.eu/rest/v2/name/${country}`)
-    .then((response) => response.json()/*, error => alert(error)*/)
-    //?NOTE if you pass a second callback function into this method it will display the error
-    .then((data) => {
+  getJSON(`https://restcountries.eu/rest/v2/name/${country}`, 'Country not found')
+    .then(data => {
       renderCountry(data[0]);
       const neighbor = data[0].borders[0];
+      // const neighbor = 'asjasd'
 
-      if (!neighbor) return
-
+      if (!neighbor) throw new Error('No neighbor found!')
+      
       // Country 2
-      return fetch(`https://restcountries.eu/rest/v2/alpha/${neighbor}`);
+      return getJSON(
+        `https://restcountries.eu/rest/v2/alpha/${neighbor}`,
+        'Country not found'
+        )
     })
-    .then(response => response.json())
     .then(data => renderCountry(data, 'neighbour'))
     .catch(error => {
       console.error(`${error} 🙌🙌🙌`)
       renderError(`Something went wrong: "${error.message}"`) 
-      //?NOTE any error created in JS has a message property
-      //?NOTE this catch block at the end of the chain will catch any errors made in the entire promise chain
     })
     .finally(() => {
       countriesContainer.style.opacity = 1;
     })
-}
+};
 
 btn.addEventListener('click', function() {
-  getCountryData('USA')
-})
+  getCountryData('usa')
+});
 
-//* THEN >>> runs when promise is fulfilled
-//* CATCH >>> runs when promise is rejected
-//* FINALLY >>> runs no matter what
-
+getCountryData('australia')
