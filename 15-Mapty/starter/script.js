@@ -82,8 +82,13 @@ class App {
   #workouts = [];
 
   constructor() {
+    //Get User's Position
     this._getPosition(); //We throw this in the constructor so that it runs as soon as an instance of the App Class is created
 
+    // Get Data From Local Storage
+    this._getLocalStorage();
+
+    // Attach Event Handlers
     form.addEventListener('submit', this._newWorkout.bind(this)); // 'this' in an event listener always points to the DOM element it is attached to so we need to bind 'this' to our App object
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
@@ -105,7 +110,7 @@ class App {
       // console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
       const coords = [latitude, longitude];
       
-      console.log(this);
+      // console.log(this);
       this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
       // console.log(map);
       //?NOTE 'L' is the global variable object imported from the Leaflet script that gives us access to all it's methods.
@@ -116,7 +121,11 @@ class App {
       // Handling clicks on map
       this.#map.on('click', this._showForm.bind(this));
       //?NOTE 'map' is the variable we stored the loaded map data, here we call the 'on()' method that we recieve from the leaflet library
-  }
+      this.#workouts.forEach(workout => {
+        this._renderWorkoutMarker(workout);
+        //?NOTE we place this method here because we need the map to load before we can place any popup markers on it
+      });
+  };
 
   _showForm(mapE) {
     this.#mapEvent = mapE; //sets the global mapEvent state to the event from this click handler
@@ -196,9 +205,10 @@ class App {
     this._renderWorkout(workout);
 
     // hide form + clear inut fields
-    this._hideForm()
+    this._hideForm();
     
-      // Display Marker
+    // Set local storage to all workouts
+    this._setLocalStorage();
   };
 
   _renderWorkoutMarker(workout) {
@@ -265,7 +275,8 @@ class App {
     }
     form.insertAdjacentHTML('afterend', html);
     
-  }
+  };
+
   _moveToPopup(e) {
     const workoutEl = e.target.closest('.workout');
     console.log(workoutEl);
@@ -281,9 +292,37 @@ class App {
     })
 
     // using the public interface
-    workout.click();
-  }
-}          
+    // workout.click(); //! Objects parsed from local storage will lose thei prototypcal inheritance because they are plain objects instead of instaces created using OOP
+  };
+
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts)); 
+    //?NOTE localStorage is a broswer API that allows us to store data in the browser as a key-value pair. The first argument is the key, the second arguement is the value (as a string) (here we use the JSON.stringify method to turn our workouts object into a string)
+  };
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'))
+    //?NOTE we use JSON.parse() method to turn our stringified data into an array of data objects
+    console.log(data);
+
+    if(!data) return;
+
+    this.#workouts = data;
+
+    this.#workouts.forEach(workout => {
+      this._renderWorkout(workout);
+    });
+  };
+
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // app.reset() in the console will clear the workouts localStorage data
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  };
+
+};
 
 const app = new App(); // create an instance of our App Class
 
