@@ -415,15 +415,69 @@ const countriesContainer = document.querySelector('.countries');
 
 //! ~~~~~~~~~~~~~~~~~~~~~~ The Event Loop in Practice ~~~~~~~~~~~~~~~~~~~~~~~~
 
-console.log('Test Start');
+// console.log('Test Start');
 
-setTimeout(() => {
-  console.log('0 sec timer');
-}, 0);
-Promise.resolve('Resolved promise 1').then(response => console.log(response));
-Promise.resolve('Resolved Promise 2').then(response => {
-  for (let i = 0; i < 10000; i ++) {
-  }
-  console.log(response)
-});
-console.log('Test end');
+// setTimeout(() => {
+//   console.log('0 sec timer');
+// }, 0);
+// Promise.resolve('Resolved promise 1').then(response => console.log(response));
+// Promise.resolve('Resolved Promise 2').then(response => {
+//   for (let i = 0; i < 10000; i ++) {
+//   }
+//   console.log(response)
+// });
+// console.log('Test end');
+
+//! ~~~~~~~~~~~~~~~~~~~~~ Building a Simple Promise ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// const lotteryPromise = new Promise(function(resolve, reject) {
+//   console.log('Lottery results are about to display...');
+//   setTimeout(() => {
+//     if(Math.random() >= 0.5) {
+//       resolve('You Win! ✨🎉') //?NOTE fulfilled/resolved promise, to made available in the .then handler
+//     } else {
+//       reject(new Error('You lose! 😂')) //? rejected promise, to made available in the .catch handler
+//       //?NOTE when you handle the rejection as an Error it will actually display and error that shows where the error occured in the script
+//     }
+//   }, 2000);
+// });
+
+// lotteryPromise.then(resolve => console.log(resolve)).catch(error => console.error(error))
+
+
+//* Promisifying setTimeout
+const wait = function(seconds) {
+  return new Promise(function(resolve) {
+  //? dont need a reject because timer won't fail
+    setTimeout(resolve, seconds * 1000)
+  });
+};
+
+// wait(2).then(() => {
+//   console.log('I waited for 2 seconds');
+//   return wait(1);
+// }).then(() => console.log('I waited for 1 second'));
+
+//* Example of using asynchronous behavior instead of Callback Hell
+wait(1)
+  .then(() => {
+    console.log('1 second passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('2 seconds passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('3 seconds passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('4 seconds passed');
+    return wait(1);
+  })
+.then(() => console.log('I waited for 5 seconds'));
+
+Promise.resolve('abc').then(x => console.log(x));
+//?NOTE static method on promise constructor that we can pass a resolve value, and will be resolved immediately
+Promise.reject(new Error('abc')).catch(x => console.error(x));
