@@ -430,54 +430,114 @@ const countriesContainer = document.querySelector('.countries');
 
 //! ~~~~~~~~~~~~~~~~~~~~~ Building a Simple Promise ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-// const lotteryPromise = new Promise(function(resolve, reject) {
-//   console.log('Lottery results are about to display...');
-//   setTimeout(() => {
-//     if(Math.random() >= 0.5) {
-//       resolve('You Win! ✨🎉') //?NOTE fulfilled/resolved promise, to made available in the .then handler
-//     } else {
-//       reject(new Error('You lose! 😂')) //? rejected promise, to made available in the .catch handler
-//       //?NOTE when you handle the rejection as an Error it will actually display and error that shows where the error occured in the script
-//     }
-//   }, 2000);
-// });
+// // const lotteryPromise = new Promise(function(resolve, reject) {
+// //   console.log('Lottery results are about to display...');
+// //   setTimeout(() => {
+// //     if(Math.random() >= 0.5) {
+// //       resolve('You Win! ✨🎉') //?NOTE fulfilled/resolved promise, to made available in the .then handler
+// //     } else {
+// //       reject(new Error('You lose! 😂')) //? rejected promise, to made available in the .catch handler
+// //       //?NOTE when you handle the rejection as an Error it will actually display and error that shows where the error occured in the script
+// //     }
+// //   }, 2000);
+// // });
 
-// lotteryPromise.then(resolve => console.log(resolve)).catch(error => console.error(error))
+// // lotteryPromise.then(resolve => console.log(resolve)).catch(error => console.error(error))
 
 
-//* Promisifying setTimeout
-const wait = function(seconds) {
-  return new Promise(function(resolve) {
-  //? dont need a reject because timer won't fail
-    setTimeout(resolve, seconds * 1000)
-  });
-};
+// //* Promisifying setTimeout
+// const wait = function(seconds) {
+//   return new Promise(function(resolve) {
+//   //? dont need a reject because timer won't fail
+//     setTimeout(resolve, seconds * 1000)
+//   });
+// };
 
-// wait(2).then(() => {
-//   console.log('I waited for 2 seconds');
-//   return wait(1);
-// }).then(() => console.log('I waited for 1 second'));
+// // wait(2).then(() => {
+// //   console.log('I waited for 2 seconds');
+// //   return wait(1);
+// // }).then(() => console.log('I waited for 1 second'));
 
-//* Example of using asynchronous behavior instead of Callback Hell
-wait(1)
-  .then(() => {
-    console.log('1 second passed');
-    return wait(1);
-  })
-  .then(() => {
-    console.log('2 seconds passed');
-    return wait(1);
-  })
-  .then(() => {
-    console.log('3 seconds passed');
-    return wait(1);
-  })
-  .then(() => {
-    console.log('4 seconds passed');
-    return wait(1);
-  })
-.then(() => console.log('I waited for 5 seconds'));
+// //* Example of using asynchronous behavior instead of Callback Hell
+// wait(1)
+//   .then(() => {
+//     console.log('1 second passed');
+//     return wait(1);
+//   })
+//   .then(() => {
+//     console.log('2 seconds passed');
+//     return wait(1);
+//   })
+//   .then(() => {
+//     console.log('3 seconds passed');
+//     return wait(1);
+//   })
+//   .then(() => {
+//     console.log('4 seconds passed');
+//     return wait(1);
+//   })
+// .then(() => console.log('I waited for 5 seconds'));
 
-Promise.resolve('abc').then(x => console.log(x));
-//?NOTE static method on promise constructor that we can pass a resolve value, and will be resolved immediately
-Promise.reject(new Error('abc')).catch(x => console.error(x));
+// Promise.resolve('abc').then(x => console.log(x));
+// //?NOTE static method on promise constructor that we can pass a resolve value, and will be resolved immediately
+// Promise.reject(new Error('abc')).catch(x => console.error(x));
+
+//! ~~~~~~~~~~~~~~~~~~ Promisifying the geolocation API ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+// const getPosition = function() {
+//   return new Promise(function(resolve, reject) {
+//     // navigator.geolocation.getCurrentPosition(
+//     //   position => resolve(position),
+//     //   error => reject(error)
+//     // );
+//     navigator.geolocation.getCurrentPosition(resolve, reject)
+//   })
+// };
+
+// const renderCountry = function(data, className) {
+//   const html = `
+//   <article class="country ${className}">
+//   <img class="country__img" src="${data.flag}" />
+//   <div class="country__data">
+//   <h3 class="country__name">${data.name}</h3>
+//   <h4 class="country__region">${data.region}</h4>
+//   <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(1)} people</p>
+//   <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
+//   <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
+//   </div>
+//   </article>
+//   `
+//   countriesContainer.insertAdjacentHTML('beforeend', html);
+// };
+
+// const whereAmI = function() {
+//   getPosition()
+//   .then(position => {
+//     const {latitude: lat, longitude: lng} = position.coords
+//     return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`)
+//   })
+//   .then(response => {
+//     if(!response.ok) throw new Error(`Problem with geocoding: ${response.status}`)
+//     return response.json()
+//   })
+//   .then(data => {
+//     console.log(data);
+//   console.log(`You are in ${data.city[0] + data.city.slice(1).toLowerCase()}, ${data.state} ${data.country}`);
+
+//     return fetch(`https://restcountries.eu/rest/v2/name/${data.country}`)
+//   })
+//   .then(response => {
+//     if(!response.ok) throw new Error(`Country not found ${response.status}`)
+//     return response.json();
+//   })
+//   .then(data => 
+//     renderCountry(data[0])
+//   )
+//   .catch(error => console.error(`${error.message} 🐱‍💻`))
+//   .finally(
+//     countriesContainer.style.opacity = 1
+//   )
+// };
+
+// btn.addEventListener('click', whereAmI)
