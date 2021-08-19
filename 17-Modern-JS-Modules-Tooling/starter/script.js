@@ -1,26 +1,28 @@
-// Importing Module
-//?NOTE code in exporting modules is executed before importing modules
 
-// // import { addToCart, qt, totalPrice as price } from './shoppingCart.js';
+const ShoppingCart2 = (function() {
+  const cart = [];
+  const shippingCost = 10;
+  const totalPrice = 237;
+  const totalQuantity = 23;
+  const addToCart = function( product, quantity) {
+    cart.push({ product, quantity });
+    console.log(`${quantity} ${product} added to cart`);
+  };
 
-// addToCart('bread', 5);
-// console.log(price, qt);
-// //?NOTE we get access to these values now from the other module
+  const orderStock = function( product, quantity) {
+    cart.push({ product, quantity });
+    console.log(`${quantity} ${product} ordered from supplier`);
+  };
 
+  return {
+    addToCart,
+    cart,
+    totalPrice,
+    totalQuantity
+  };
+})();
 
-console.log('Importing Module');
-
-// import * as ShoppingCart from './shoppingCart.js'
-// ShoppingCart.addToCart('break', 5)
-// console.log(ShoppingCart.totalPrice);
-// console.log(ShoppingCart.qt);
-
-// console.log(shippingCost);
-
-import add, { cart } from './shoppingCart.js'
-add('pizza', 2)
-add('bread', 5)
-add('apple', 4)
-
-console.log(cart);
-//?NOTE these point to the same place in memory in both modules
+ShoppingCart2.addToCart('apple', 4);
+ShoppingCart2.addToCart('pizza', 2);
+console.log(ShoppingCart2);
+console.log(ShoppingCart2.shippingCost);
