@@ -1,15 +1,21 @@
 {
-  "name": "complete-javascript-course",
+  "name": "17-modern-js-modules-tooling",
   "version": "1.0.0",
-  "description": "This repository is for the sole purpose of commiting notes and coding challenges for future reference while on my 200-250 hour JavaScript journey",
-  "main": "index.js",
+  "description": "",
+  "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "author": "Nick",
   "license": "ISC",
   "dependencies": {
-    "leaflet": "^1.7.1",
-    "lodash-es": "^4.17.21"
+    "core-js": "^3.6.5",
+    "leaflet": "^1.6.0",
+    "lodash-es": "^4.17.15",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
   }
 }
