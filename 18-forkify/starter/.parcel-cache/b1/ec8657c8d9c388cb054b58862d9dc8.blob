@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700" rel="stylesheet">
-    <link rel="shortcut icon" href="/favicon.28803d06.png" type="image/x-icon">
+    <link href="56179349d685e99c0ad469d9fea379c8" rel="stylesheet">
+    <link rel="shortcut icon" href="40631ad2bc37a5678917a091f60a93e1" type="image/x-icon">
 
-    <link rel="stylesheet" href="/main.7b836a5d.css">
-    <script defer="" src="/controller.6be8281d.js"></script>
+    <link rel="stylesheet" href="8bf3aa0590579dbc0aa7de49988a8c5f">
+    <script defer="" src="9e58044eb023ac0cb64933ff0bfdef79"></script>
 
     <title>forkify // Search over 1,000,000 recipes</title>
   </head>
@@ -16,12 +16,12 @@
   <body>
     <div class="container">
       <header class="header">
-        <img src="/logo.38c69d92.png" alt="Logo" class="header__logo">
+        <img src="2ad4a3a29b50fc38ef0bc339f0278850" alt="Logo" class="header__logo">
         <form class="search">
           <input type="text" class="search__field" placeholder="Search over 1,000,000 recipes...">
           <button class="btn search__btn">
             <svg class="search__icon">
-              <use href="/icons.543b0ff1.svg#icon-search"></use>
+              <use href="f92d73b3a746cc92c06918e3dd593247"></use>
             </svg>
             <span>Search</span>
           </button>
@@ -32,7 +32,7 @@
             <li class="nav__item">
               <button class="nav__btn nav__btn--add-recipe">
                 <svg class="nav__icon">
-                  <use href="/icons.543b0ff1.svg#icon-edit"></use>
+                  <use href="d4f018bcc0899d5b9a027c012524344e"></use>
                 </svg>
                 <span>Add recipe</span>
               </button>
@@ -40,7 +40,7 @@
             <li class="nav__item">
               <button class="nav__btn nav__btn--bookmarks">
                 <svg class="nav__icon">
-                  <use href="/icons.543b0ff1.svg#icon-bookmark"></use>
+                  <use href="a6b1d0fad2e8849d1c90b2c8b90a0a42"></use>
                 </svg>
                 <span>Bookmarks</span>
               </button>
@@ -49,7 +49,7 @@
                   <div class="message">
                     <div>
                       <svg>
-                        <use href="/icons.543b0ff1.svg#icon-smile"></use>
+                        <use href="4ed7dd822fb9044733a69341ed082169"></use>
                       </svg>
                     </div>
                     <p>
@@ -118,7 +118,7 @@
 
         <p class="copyright">
           &copy; Copyright by
-          <a class="twitter-link" target="_blank" href="https://twitter.com/jonasschmedtman">Jonas Schmedtmann</a>. Use for learning or your portfolio. Don't use to teach. Don't claim
+          <a class="twitter-link" target="_blank" href="a36d78147822172df00a4a1611044997">Jonas Schmedtmann</a>. Use for learning or your portfolio. Don't use to teach. Don't claim
           as your own.
         </p>
       </div>
@@ -127,7 +127,7 @@
         <div class="message">
           <div>
             <svg>
-              <use href="/icons.543b0ff1.svg#icon-smile"></use>
+              <use href="4ed7dd822fb9044733a69341ed082169"></use>
             </svg>
           </div>
           <p>Start by searching for a recipe or an ingredient. Have fun!</p>
@@ -284,7 +284,7 @@
 
         <button class="btn upload__btn">
           <svg>
-            <use href="/icons.543b0ff1.svg#icon-upload-cloud"></use>
+            <use href="13ca095b770aed59e66f2635833629b4"></use>
           </svg>
           <span>Upload</span>
         </button>

@@ -593,10 +593,9 @@ const showRecipe = async function () {
   } catch (error) {
     console.error(error);
   }
-}; // showRecipe();
+};
 
-
-['hashchange', 'load'].forEach(event => window.addEventListener(event, showRecipe)); //?NOTE listen for the hash change in the window location (address bar) and for the page to load then call the showRecipe function
+showRecipe();
 },{"url:../img/icons.svg":"41e46f2c4257a442c575442725e81cf7","core-js/modules/web.immediate.js":"140df4f8e97a45c53c66fead1f5a9e92","regenerator-runtime":"e155e0d3930b156f86c48e8d05522b16"}],"41e46f2c4257a442c575442725e81cf7":[function(require,module,exports) {
 module.exports = require('./bundle-url').getBundleURL() + require('./relative-path')("5204438839f46528", "f9c0dea6f6a31183");
 },{"./bundle-url":"2146da1905b95151ed14d455c784e7b7","./relative-path":"1b9943ef25c7bbdf0dd1b9fa91880a6c"}],"2146da1905b95151ed14d455c784e7b7":[function(require,module,exports) {
