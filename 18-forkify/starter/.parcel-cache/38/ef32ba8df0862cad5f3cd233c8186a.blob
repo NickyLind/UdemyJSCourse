@@ -482,7 +482,7 @@ const showRecipe = async function () {
 
     _recipeView.default.render(model.state.recipe);
   } catch (error) {
-    _recipeView.default.renderError();
+    console.error(error);
   }
 }; // showRecipe();
 
@@ -1527,8 +1527,7 @@ const loadRecipe = async function (id) {
     };
     console.log(state.recipe);
   } catch (error) {
-    console.error(`error : ${error.message}`);
-    throw error;
+    console.error(error);
   }
 };
 
@@ -1646,7 +1645,7 @@ class RecipeView {
     </div> 
     `;
 
-      _classPrivateMethodGet(this, _clear, _clear2).call(this);
+      _classPrivateMethodGet(this, _clear, _clear2);
 
       _classPrivateFieldGet(this, _parentElement).insertAdjacentHTML('afterbegin', markup);
     });
