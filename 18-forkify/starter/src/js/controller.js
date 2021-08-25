@@ -1,5 +1,6 @@
 import * as model from "./model.js";
 import recipeView from "./views/recipeView.js";
+import searchView from "./views/searchView.js";
 
 // import icons from '../img/icons.svg'; //Parcel 1
 import icons from 'url:../img/icons.svg'; //Parcel 2
@@ -42,9 +43,25 @@ const showRecipe = async function() {
   }
 };
 
-// showRecipe();
+const controlSearchResults = async function() {
+  try {
+    //* 1) Get Search Query
+    const query = searchView.getQuery();
+    if(!query) return;
+
+    //* 2) Load Searcg Results
+    await model.loadSearchResults(query);
+
+    //* 3) Render Results
+
+    console.log(model.state.search.results);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 const init = function() {
-  recipeView.addHandlerRender(showRecipe)
+  recipeView.addHandlerRender(showRecipe);
+  searchView.addHandlerSearch(controlSearchResults);
 };
 init();

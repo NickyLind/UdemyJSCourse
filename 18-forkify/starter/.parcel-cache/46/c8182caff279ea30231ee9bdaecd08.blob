@@ -490,13 +490,7 @@ const showRecipe = async function () {
 
 const controlSearchResults = async function () {
   try {
-    //* 1) Get Search Query
-    const query = _searchView.default.getQuery();
-
-    if (!query) return; //* 2) Load Searcg Results
-
-    await model.loadSearchResults(query); //* 3) Render Results
-
+    await model.loadSearchResults('pizza');
     console.log(model.state.search.results);
   } catch (error) {
     console.error(error);
