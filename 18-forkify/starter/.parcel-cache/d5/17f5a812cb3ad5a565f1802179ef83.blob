@@ -1496,9 +1496,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loadRecipe = exports.state = void 0;
 
-var _config = require("./config.js");
-
-var _helpers = require("./helpers.js");
+var _config = require("./views/config");
 
 const state = {
   recipe: {}
@@ -1507,7 +1505,7 @@ exports.state = state;
 
 const loadRecipe = async function (id) {
   try {
-    const data = await (0, _helpers.getJSON)(`${_config.API_URL}/${id}`);
+    const data = await getJSON(`${_config.API_URL}/${id}`);
     let {
       recipe
     } = data.data;
@@ -1528,7 +1526,7 @@ const loadRecipe = async function (id) {
 };
 
 exports.loadRecipe = loadRecipe;
-},{"./config.js":"09212d541c5c40ff2bd93475a904f8de","./helpers.js":"0e8dcd8a4e1c61cf18f78e1c2563655d"}],"09212d541c5c40ff2bd93475a904f8de":[function(require,module,exports) {
+},{"./views/config":"9e8da5f9c0cf0ec7dcf4c27c3d60f805"}],"9e8da5f9c0cf0ec7dcf4c27c3d60f805":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1539,37 +1537,7 @@ const API_URL = 'https://forkify-api.herokuapp.com/api/v2/recipes/';
 exports.API_URL = API_URL;
 const TIMEOUT_SEC = 10;
 exports.TIMEOUT_SEC = TIMEOUT_SEC;
-},{}],"0e8dcd8a4e1c61cf18f78e1c2563655d":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getJSON = void 0;
-
-var _config = require("./config");
-
-const timeout = function (s) {
-  return new Promise(function (_, reject) {
-    setTimeout(() => {
-      reject(new Error(`Request took too long. Timeout after ${s} seconds`));
-    }, s * 1000);
-  });
-};
-
-const getJSON = async function (url) {
-  try {
-    const response = await Promise.race([fetch(url), timeout(_config.TIMEOUT_SEC)]);
-    const data = await response.json();
-    if (!response.ok) throw new Error(`${data.message} (${response.status})`);
-    return data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-exports.getJSON = getJSON;
-},{"./config":"09212d541c5c40ff2bd93475a904f8de"}],"bcae1aced0301b01ccacb3e6f7dfede8":[function(require,module,exports) {
+},{}],"bcae1aced0301b01ccacb3e6f7dfede8":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
