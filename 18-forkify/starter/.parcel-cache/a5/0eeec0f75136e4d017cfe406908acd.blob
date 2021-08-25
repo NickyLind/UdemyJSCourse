@@ -488,7 +488,7 @@ const showRecipe = async function () {
 
 
 const init = function () {
-  _recipeView.default.addHandlerRender(showRecipe);
+  _recipeView.default.addHandlerRender(controlRecipe);
 };
 
 init();

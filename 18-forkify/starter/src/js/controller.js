@@ -44,5 +44,7 @@ const showRecipe = async function() {
 
 // showRecipe();
 
-['hashchange', 'load'].forEach(event => window.addEventListener(event, showRecipe))
-//?NOTE listen for the hash change in the window location (address bar) and for the page to load then call the showRecipe function
+const init = function() {
+  recipeView.addHandlerRender(showRecipe)
+};
+init();

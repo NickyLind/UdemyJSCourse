@@ -488,7 +488,7 @@ const showRecipe = async function () {
 
 
 const init = function () {
-  _recipeView.default.addHandlerRender(showRecipe);
+  _recipeView.default.addHandlerRender(controlRecipe);
 };
 
 init();
@@ -1652,10 +1652,6 @@ class RecipeView {
     _classPrivateMethodGet(this, _clear, _clear2).call(this);
 
     _classPrivateFieldGet(this, _parentElement).insertAdjacentHTML('afterbegin', markup);
-  }
-
-  addHandlerRender(handler) {
-    ['hashchange', 'load'].forEach(event => window.addEventListener(event, handler)); //?NOTE listen for the hash change in the window location (address bar) and for the page to load then call the showRecipe function
   }
 
 }

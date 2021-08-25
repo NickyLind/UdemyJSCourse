@@ -28,6 +28,11 @@ class RecipeView {
     this.#clear
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   };
+  
+  addHandlerRender(handler) {
+    ['hashchange', 'load'].forEach(event => window.addEventListener(event, handler))
+//?NOTE listen for the hash change in the window location (address bar) and for the page to load then call the showRecipe function
+  }
 
   #generateMarkup() {
     console.log(this.#data);
