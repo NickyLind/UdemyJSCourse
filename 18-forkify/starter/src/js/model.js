@@ -62,4 +62,15 @@ export const getSearchResultsPage = function(page = state.search.page) {
 
   return state.search.results.slice(start, end)
   //?NOTE this function will take the page and track it in the state, then show 10 results basesd on what page the user is on
-}
+};
+
+export const updateServings = function(newServings) {
+  //?NOTE this method loops through each ingredient and updates it for the new serving size
+  //? 2 cups * 4 servings / 2 servings = 4 cups
+  state.recipe.ingredients.forEach(ing => {
+    ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
+  });
+
+  state.recipe.servings = newServings;
+  //?NOTE update the servings in the state to match the newServings
+};

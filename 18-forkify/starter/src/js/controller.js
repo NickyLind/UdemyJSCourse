@@ -57,6 +57,16 @@ const controlSearchResults = async function() {
   }
 };
 
+const controlServings = function(newServings) {
+  //* Update the recipe servings (in state)
+  model.updateServings(newServings);
+  //? method we created in the model
+
+  //* Update the view
+  recipeView.render(model.state.recipe);
+  //? re-render the updated recipe state to the DOM
+};
+
 const controlPagination = function(goToPage) {
   //* 1) Render NEW Results
   resultsView.render(model.getSearchResultsPage(goToPage));
@@ -67,6 +77,7 @@ const controlPagination = function(goToPage) {
 
 const init = function() {
   recipeView.addHandlerRender(showRecipe);
+  recipeView.addHandlerUpdateServings(controlServings);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   //?NOTE these functions pass in functions to the methods in the views so they have access to them and can pass information back into this init() function
