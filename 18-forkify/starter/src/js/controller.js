@@ -41,14 +41,14 @@ const controlSearchResults = async function() {
     const query = searchView.getQuery();
     if(!query) return;
 
-    //* 2) Load Searcg Results
+    //* 2) Load Search Results
     await model.loadSearchResults(query);
     //?NOTE our model is imported and we call the loadSearchResults method and pass it the query we recieve from out getQuery method in our searchView
 
     //* 3) Render Results
 
-    resultsView.render(model.state.search.results)
-    //?NOTE we call the render method that our resultsView inherits from the View class. We pass our 'data' into this render function which generates markup to display in the resultsView 
+    resultsView.render(model.getSearchResultsPage());
+    //?NOTE now we are only passing the results in the array that were sliced out of the original array depending on what page the user is on into the render method to be rendered into the preview results
   } catch (error) {
     console.error(error);
   }
