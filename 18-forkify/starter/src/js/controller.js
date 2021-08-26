@@ -77,11 +77,23 @@ const controlPagination = function(goToPage) {
 
   //* 2) Render NEW Pagination Buttons
   paginationView.render(model.state.search)
-}
+};
+
+const controlAddBookmark = function() {
+  if(!model.state.recipe.bookmarked) {
+    model.addBookmark(model.state.recipe);
+    //?NOTE if the current loaded recipe isn't bookmarked it bookmark it or vice-versa
+  } else {
+    model.deleteBookmark(model.state.recipe.id);
+  }
+
+  recipeView.update(model.state.recipe);
+};
 
 const init = function() {
   recipeView.addHandlerRender(showRecipe);
   recipeView.addHandlerUpdateServings(controlServings);
+  recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   //?NOTE these functions pass in functions to the methods in the views so they have access to them and can pass information back into this init() function

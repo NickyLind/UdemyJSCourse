@@ -8,7 +8,8 @@ export const state = {
     results: [],
     page: 1,
     resultsPerPage: RES_PER_PAGE
-  }
+  },
+  bookmarks: [],
 };
 
 export const loadRecipe = async function(id) {
@@ -17,7 +18,7 @@ export const loadRecipe = async function(id) {
     const data = await getJSON(`${API_URL}/${id}`)
 
 
-    let { recipe } = data.data;
+    const { recipe } = data.data;
     state.recipe = {
       id: recipe.id,
       title: recipe.title,
@@ -27,7 +28,15 @@ export const loadRecipe = async function(id) {
       servings: recipe.servings,
       cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients
-    }
+    };
+
+    if(state.bookmarks.some(bookmark => bookmark.id === id)) {
+      state.recipe.bookmarked = true;
+    } else {
+      state.recipe.bookmarked = false;
+    };
+
+    
   } catch (error) {
     console.error(`error : ${error.message}`);
     throw error;
@@ -73,4 +82,26 @@ export const updateServings = function(newServings) {
 
   state.recipe.servings = newServings;
   //?NOTE update the servings in the state to match the newServings
+};
+
+export const addBookmark = function(recipe) {
+  //* Add bookmark
+  state.bookmarks.push(recipe);
+  //?NOTE push the recipe to our bookmarks array in our state object
+
+  //* Mark current recipe as bookmark
+  if(recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+  //?NOTE if the recipe being passed into the function's id is equal to the id of the recipe currently in the state then give it a bookmarked property equal to true
+};
+
+export const deleteBookmark = function(id) {
+  //* Delete bookmark
+  const index = state.bookmarks.findIndex(el => el.id === id);
+  //?NOTE create an index variable so we know where to splice our bookmark array. we find the index of our bookmark array we the element id in the loop is equal to the id being passed into the function
+  state.bookmarks.splice(index, 1);
+  //?NOTE remove that entry in the bookmarks array
+
+  //* Mark current recipe as NOT bookmarked
+  if (id === state.recipe.id) state.recipe.bookmarked = false;
+  //?NOTE if the id being passed into the function is the same as the id of the current recipe in the state, then set it's bookmarked property to false
 };

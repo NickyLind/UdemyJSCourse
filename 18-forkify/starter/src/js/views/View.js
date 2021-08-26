@@ -30,7 +30,7 @@ export default class View {
       // console.log(curEl, newEl.isEqualNode(curEl));
 
       //* Updates changes TEXT
-      if(!newEl.isEqualNode(curEl) && newEl.firstChild.nodeValue.trim() !== '') {
+      if(!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() !== '') {
         //?NOTE if the new element and current element are not equal and the firstChild of the new element (text) is not equal to nothing:
         // console.log('🥞', newEl.firstChild.nodeValue.trim() !== '');
         curEl.textContent = newEl.textContent;
