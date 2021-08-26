@@ -1561,6 +1561,7 @@ const loadRecipe = async function (id) {
       cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients
     };
+    console.log(state.recipe);
   } catch (error) {
     console.error(`error : ${error.message}`);
     throw error;
@@ -1573,6 +1574,7 @@ const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
     const data = await (0, _helpers.getJSON)(`${_config.API_URL}?search=${query}`);
+    console.log(data);
     state.search.results = data.data.recipes.map(recipe => {
       return {
         id: recipe.id,
@@ -2403,6 +2405,7 @@ class ResultsView extends _View.default {
   }
 
   _generateMarkup() {
+    console.log(this._data);
     return this._data.map(this._generateMarkupPreview).join('');
   }
 
@@ -3209,8 +3212,7 @@ class PaginationView extends _View.default {
   }
 
   addHandlerClick(handler) {
-    //?NOTE this is the handler function that is going to pass data back to the controller using a handler function. Here we pass back the id(also the page number) of the button we click so that the controller can re-render the buttons and results of that page
-    this._parentElement.addEventListener('click', function (e) {
+    this._parentElemet.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--inline');
       if (!btn) return;
       const goToPage = +btn.dataset.goto;
@@ -3219,11 +3221,8 @@ class PaginationView extends _View.default {
   }
 
   _generateMarkup() {
-    //?NOTE this method is full of conditionals that are based on the current page (which is stored in the state of our model), and renders html markup according to the results of the pagination
-    const currentPage = this._data.page; //? saving some text
-
-    const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage); //?NOTE we round up the amount of pages we need (length of the results array divided by the results per page (10)) so that every result will appear on a page
-    //Page 1, and there are other pages
+    const currentPage = this._data.page;
+    const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage); //Page 1, and there are other pages
 
     if (currentPage === 1 && numPages > 1) {
       return `

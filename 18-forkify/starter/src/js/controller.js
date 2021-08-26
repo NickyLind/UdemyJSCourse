@@ -2,6 +2,7 @@ import * as model from "./model.js";
 import recipeView from "./views/recipeView.js";
 import searchView from "./views/searchView.js";
 import resultsView from "./views/resultsView.js";
+import paginationView from "./views/paginationView.js";
 
 // import icons from '../img/icons.svg'; //Parcel 1
 import icons from 'url:../img/icons.svg'; //Parcel 2
@@ -46,17 +47,28 @@ const controlSearchResults = async function() {
     //?NOTE our model is imported and we call the loadSearchResults method and pass it the query we recieve from out getQuery method in our searchView
 
     //* 3) Render Results
-
     resultsView.render(model.getSearchResultsPage());
     //?NOTE now we are only passing the results in the array that were sliced out of the original array depending on what page the user is on into the render method to be rendered into the preview results
+
+    //* 4) Render initial pagination buttons
+    paginationView.render(model.state.search)
   } catch (error) {
     console.error(error);
   }
+};
+
+const controlPagination = function(goToPage) {
+  //* 1) Render NEW Results
+  resultsView.render(model.getSearchResultsPage(goToPage));
+
+  //* 2) Render NEW Pagination Buttons
+  paginationView.render(model.state.search)
 }
 
 const init = function() {
   recipeView.addHandlerRender(showRecipe);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
   //?NOTE these functions pass in functions to the methods in the views so they have access to them and can pass information back into this init() function
 };
 init();
