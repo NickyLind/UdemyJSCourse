@@ -3,6 +3,7 @@ import recipeView from "./views/recipeView.js";
 import searchView from "./views/searchView.js";
 import resultsView from "./views/resultsView.js";
 import paginationView from "./views/paginationView.js";
+import bookmarksView from "./views/bookmarksView.js";
 
 // import icons from '../img/icons.svg'; //Parcel 1
 import icons from 'url:../img/icons.svg'; //Parcel 2
@@ -17,7 +18,7 @@ if(module.hot) {
   //?NOTE this is to freeze the state when the page reloads (it's not JS it is a parcel command)
 }
 
-const showRecipe = async function() {
+const controlRecipe = async function() {
   try {
     let id = window.location.hash.slice(1);
     console.log(id);
@@ -27,6 +28,7 @@ const showRecipe = async function() {
 
     //* 0) Update results view to mark selected search result
     resultsView.update(model.getSearchResultsPage());
+    bookmarksView.update(model.state.bookmarks);
 
     //* 1) Loading Recipe
     await model.loadRecipe(id);
@@ -80,18 +82,22 @@ const controlPagination = function(goToPage) {
 };
 
 const controlAddBookmark = function() {
+  //* 1) Add or remove bookmark
   if(!model.state.recipe.bookmarked) {
     model.addBookmark(model.state.recipe);
     //?NOTE if the current loaded recipe isn't bookmarked it bookmark it or vice-versa
   } else {
     model.deleteBookmark(model.state.recipe.id);
   }
-
+  //* 2) Update recipe view
   recipeView.update(model.state.recipe);
+
+  //* 3) Render bookmarks
+  bookmarksView.render(model.state.bookmarks);
 };
 
 const init = function() {
-  recipeView.addHandlerRender(showRecipe);
+  recipeView.addHandlerRender(controlRecipe);
   recipeView.addHandlerUpdateServings(controlServings);
   recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
