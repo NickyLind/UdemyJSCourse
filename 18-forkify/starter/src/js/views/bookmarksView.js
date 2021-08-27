@@ -11,6 +11,10 @@ class BookmarksView extends View {
     return this._data.map(this._generateMarkupPreview).join('')
   };
 
+  addHandlerRender(handler) {
+    window.addEventListener('load', handler)
+  };
+
   _generateMarkupPreview(result) {
     const id = window.location.hash.slice(1);
 

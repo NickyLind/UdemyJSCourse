@@ -36,7 +36,7 @@ export const loadRecipe = async function(id) {
       state.recipe.bookmarked = false;
     };
 
-    
+
   } catch (error) {
     console.error(`error : ${error.message}`);
     throw error;
@@ -84,6 +84,10 @@ export const updateServings = function(newServings) {
   //?NOTE update the servings in the state to match the newServings
 };
 
+const persistBookmarks = function() {
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks))
+};
+
 export const addBookmark = function(recipe) {
   //* Add bookmark
   state.bookmarks.push(recipe);
@@ -92,6 +96,9 @@ export const addBookmark = function(recipe) {
   //* Mark current recipe as bookmark
   if(recipe.id === state.recipe.id) state.recipe.bookmarked = true;
   //?NOTE if the recipe being passed into the function's id is equal to the id of the recipe currently in the state then give it a bookmarked property equal to true
+
+  persistBookmarks();
+  //?NOTE add the bookmark to local storage
 };
 
 export const deleteBookmark = function(id) {
@@ -104,4 +111,17 @@ export const deleteBookmark = function(id) {
   //* Mark current recipe as NOT bookmarked
   if (id === state.recipe.id) state.recipe.bookmarked = false;
   //?NOTE if the id being passed into the function is the same as the id of the current recipe in the state, then set it's bookmarked property to false
+
+  persistBookmarks();
+};
+
+const init = function() {
+  const storage = localStorage.getItem('bookmarks');
+  if(storage) state.bookmarks = JSON.parse(storage);
+};
+
+init();
+
+const clearBookmarks = function() {
+  localStorage.clear('bookmarks');
 };
