@@ -4,6 +4,7 @@ import searchView from "./views/searchView.js";
 import resultsView from "./views/resultsView.js";
 import paginationView from "./views/paginationView.js";
 import bookmarksView from "./views/bookmarksView.js";
+import addRecipeView from "./views/addRecipeView.js";
 
 // import icons from '../img/icons.svg'; //Parcel 1
 import icons from 'url:../img/icons.svg'; //Parcel 2
@@ -102,6 +103,10 @@ const controlBookmarks = function() {
   //?NOTE we send this to the bookmarks view and attach it onto a load event listener on the window object so we render the bookmarks as soon as the page loads
 };
 
+const controlAddRecipe = function(newRecipe) {
+  console.log(newRecipe);
+};
+
 const init = function() {
   bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipe);
@@ -109,6 +114,7 @@ const init = function() {
   recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
+  addRecipeView.addHandlerUpload(controlAddRecipe);
   //?NOTE these functions pass in functions to the methods in the views so they have access to them and can pass information back into this init() function
 };
 init();
