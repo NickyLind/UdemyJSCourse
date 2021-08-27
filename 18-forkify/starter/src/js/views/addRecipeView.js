@@ -36,7 +36,7 @@ class AddRecipeView extends View {
       //?NOTE makes a copy of the form data that's submitted by the form 
       const data = Object.fromEntries(dataArray)
       //?NOTE Object.fromEntries will change the data from an array containing multiple arrays of data into an object
-      console.log(data);
+      handler(data);
     });
   };
 
